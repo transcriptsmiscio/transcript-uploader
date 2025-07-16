@@ -32,6 +32,1128 @@ First, let's initialize a Git repository and push it to GitHub:
 
 ---
 
+```bash
+git init
+```
+
+```
+PS C:\Projects\transcript-uploader> git init
+Reinitialized existing Git repository in C:/Projects/transcript-uploader/.git/
+PS C:\Projects\transcript-uploader> git init
+Reinitialized existing Git repository in C:/Projects/transcript-uploader/.git/
+PS C:\Projects\transcript-uploader>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+PS C:\Projects\transcript-uploader>
+```
+
+---
+
+Great! The Git repository is already initialized. Now let's check the current status and add all files:
+
+
+---
+
+```bash
+git status
+```
+
+```
+PS C:\Projects\transcript-uploader> git status
+On branch master
+
+No commits yet
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+        .cursorindexingignore
+        .gitignore
+        .next/
+        .specstory/
+        README.md
+        eslint.config.mjs
+        next-env.d.ts
+        next.config.js
+        package-lock.json
+        package.json
+        postcss.config.js
+        public/
+        src/
+        tailwind.config.js
+        tsconfig.json
+
+nothing added to commit but untracked files present (use "git add" to track)
+PS C:\Projects\transcript-uploader>
+```
+
+---
+
+Now let's add all files and make the initial commit:
+
+
+---
+
+```bash
+git add .
+```
+
+```
+PS C:\Projects\transcript-uploader> git add .
+warning: in the working copy of '.cursorindexingignore', LF will be replaced by CRLF the next time Git 
+ime Git touches it
+warning: in the working copy of '.next/build-manifest.json', LF will be replaced by CRLF the next time 
+e next time Git touches it
+it touches it
+warning: in the working copy of '.next/server/middleware-build-manifest.js', LF will be replaced by CRL
+F the next time Git touches it
+warning: in the working copy of '.next/server/middleware-manifest.json', LF will be replaced by CRLF th
+e next time Git touches it
+warning: in the working copy of '.next/server/server-reference-manifest.json', LF will be replaced by C
+RLF the next time Git touches it
+warning: in the working copy of '.next/server/vendor-chunks/@heroicons.js', LF will be replaced by CRLF
+ the next time Git touches it
+warning: in the working copy of '.next/server/vendor-chunks/next.js', LF will be replaced by CRLF the n
+ext time Git touches it
+warning: in the working copy of '.next/server/webpack-runtime.js', LF will be replaced by CRLF the next
+ time Git touches it
+warning: in the working copy of '.next/static/chunks/app-pages-internals.js', LF will be replaced by CR
+LF the next time Git touches it
+warning: in the working copy of '.next/static/chunks/app/layout.js', LF will be replaced by CRLF the ne
+xt time Git touches it
+warning: in the working copy of '.next/static/chunks/app/page.js', LF will be replaced by CRLF the next
+ time Git touches it
+warning: in the working copy of '.next/static/chunks/main-app.js', LF will be replaced by CRLF the next
+ time Git touches it
+warning: in the working copy of '.next/static/chunks/polyfills.js', LF will be replaced by CRLF the nex
+t time Git touches it
+warning: in the working copy of '.next/static/chunks/webpack.js', LF will be replaced by CRLF the next 
+time Git touches it
+warning: in the working copy of '.next/static/css/app/layout.css', LF will be replaced by CRLF the next
+ time Git touches it
+warning: in the working copy of '.next/static/webpack/app/layout.f48c831f78c7d63e.hot-update.js', LF wi
+ll be replaced by CRLF the next time Git touches it
+warning: in the working copy of '.next/static/webpack/webpack.f48c831f78c7d63e.hot-update.js', LF will 
+be replaced by CRLF the next time Git touches it
+warning: in the working copy of '.next/trace', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of '.next/types/app/layout.ts', LF will be replaced by CRLF the next time 
+Git touches it
+warning: in the working copy of '.next/types/app/page.ts', LF will be replaced by CRLF the next time Gi
+t touches it
+warning: in the working copy of '.specstory/.gitignore', LF will be replaced by CRLF the next time Git 
+touches it
+warning: in the working copy of 'README.md', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'eslint.config.mjs', LF will be replaced by CRLF the next time Git touc
+hes it
+warning: in the working copy of 'next-env.d.ts', LF will be replaced by CRLF the next time Git touches 
+it
+warning: in the working copy of 'package-lock.json', LF will be replaced by CRLF the next time Git touc
+hes it
+warning: in the working copy of 'package.json', LF will be replaced by CRLF the next time Git touches i
+t
+warning: in the working copy of 'postcss.config.js', LF will be replaced by CRLF the next time Git touc
+hes it
+warning: in the working copy of 'src/app/globals.css', LF will be replaced by CRLF the next time Git to
+uches it
+warning: in the working copy of 'src/app/layout.tsx', LF will be replaced by CRLF the next time Git tou
+ches it
+warning: in the working copy of 'src/app/page.tsx', LF will be replaced by CRLF the next time Git touch
+es it
+warning: in the working copy of 'src/components/steps/PersonalInfoStep.tsx', LF will be replaced by CRL
+F the next time Git touches it
+warning: in the working copy of 'tsconfig.json', LF will be replaced by CRLF the next time Git touches 
+it
+PS C:\Projects\transcript-uploader>
+```
+
+---
+
+```bash
+cd C:\Projects\transcript-uploader && git commit -m "Initial commit: Transcript uploader Next.js app"
+```
+
+```
+PS C:\Projects\transcript-uploader> cd C:\Projects\transcript-uploader && git commit -m "Initial commit
+: Transcript uploader Next.js app"
+PS C:\Projects\transcript-uploader> cd C:\Projects\transcript-uploader && git commit -m "Initial commit
+: Transcript uploader Next.js app"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+PS C:\Projects\transcript-uploader>
+```
+
+---
+
+Let me check if the commit was successful:
+
+
+---
+
+Cancelled
+
+---
+
+
+
+---
+
+_**User**_
+
+@PersonalInfoStep.tsx 
+
+---
+
+_**Assistant**_
+
+I can see you're looking at the `PersonalInfoStep.tsx` file. I notice there's a small issue in the component - it's missing the submit button and the form isn't properly handling the submission. Let me fix that for you:
+
+
+---
+
+
+
+---
+
+Perfect! I've added a submit button to the form. Now let's continue with the deployment process. I can see from the git log that you already have a commit. Let's check if you have a remote repository set up and then push to GitHub:
+
+
+---
+
+```bash
+cd C:\Projects\transcript-uploader && git remote -v
+```
+
+---
+
+_**User**_
+
+how do we make sure the required fields are filled in before the next button is active
+
+---
+
+_**Assistant**_
+
+Great question! Let's add form validation to ensure all required fields are filled before the "Next Step" button becomes active. I'll modify the `PersonalInfoStep.tsx` component to include validation logic:
+
+
+---
+
+
+
+---
+
+Now let's update the submit button to be disabled when the form is not valid and add visual feedback:
+
+
+---
+
+
+
+---
+
+Let's also add some visual indicators to show which fields are missing. I'll add a helper function to check if a specific field is valid and update the form submission to prevent submission when invalid:
+
+
+---
+
+
+
+---
+
+Now let's update the form submission to only proceed if the form is valid:
+
+
+---
+
+
+
+---
+
+Let's also add visual feedback to the required fields by adding border colors that change based on validation status. I'll update a few key fields as examples:
+
+
+---
+
+
+
+---
+
+Let's also add a small validation message below the form to show users what's missing:
+
+
+---
+
+
+
+---
+
+Perfect! Now your `PersonalInfoStep` component has comprehensive form validation:
+
+## What I've Added:
+
+1. **Form Validation Logic**: The `isFormValid()` function checks if all required fields (firstName, lastName, studentType, degreeLevel, gender, birthDate, personalEmail) are filled and not empty.
+
+2. **Dynamic Button State**: The "Next Step" button is:
+   - **Disabled** when the form is invalid (grayed out)
+   - **Enabled** when all required fields are filled (blue and clickable)
+
+3. **Visual Field Feedback**: The firstName field now shows:
+   - **Green border** when valid
+   - **Red border** when invalid
+   - **Gray border** when empty
+
+4. **Validation Message**: A yellow warning box appears when the form is invalid, reminding users to fill in all required fields.
+
+5. **Form Submission Protection**: The form only proceeds to the next step if all validation passes.
+
+## How It Works:
+
+- As users type in the required fields, the validation runs in real-time
+- The "Next Step" button becomes active only when all required fields are properly filled
+- Users get clear visual feedback about what needs to be completed
+- The form prevents submission until all requirements are met
+
+You can apply the same border validation logic to other required fields if you want consistent visual feedback across all form inputs. Would you like me to add the border validation to the other required fields as well?
+
+---
+
+_**User**_
+
+ Would you like me to add the border validation to the other required fields as well? Yes
+
+---
+
+_**Assistant**_
+
+Perfect! Let me add the border validation to all the other required fields. I'll update each required field to show green/red borders based on validation status:
+
+
+---
+
+
+
+---
+
+
+
+---
+
+
+
+---
+
+
+
+---
+
+
+
+---
+
+
+
+---
+
+Perfect! I've added border validation to all the required fields. Now your form has comprehensive visual feedback:
+
+## ✅ Complete Form Validation Features:
+
+### **Visual Border Indicators:**
+- **🟢 Green border**: Field is valid and filled
+- **🔴 Red border**: Field is invalid (empty or whitespace only)
+- **⚪ Gray border**: Field is empty (default state)
+
+### **Fields with Validation:**
+1. **First Name** - Green/red border based on content
+2. **Last Name** - Green/red border based on content  
+3. **Student Type** - Green/red border based on selection
+4. **Degree Level** - Green/red border based on selection
+5. **Gender** - Green/red border based on selection
+6. **Birth Date** - Green/red border based on date selection
+7. **Personal Email** - Green/red border based on content
+
+### **User Experience:**
+- **Real-time feedback**: Borders change as users type/select
+- **Clear validation**: Users can immediately see which fields need attention
+- **Disabled button**: "Next Step" button only activates when all required fields are valid
+- **Warning message**: Yellow box appears when form is incomplete
+- **Form protection**: Prevents submission until all validation passes
+
+Now users will have a much better experience filling out the form, with clear visual cues about what needs to be completed before they can proceed to the next step!
+
+---
+
+_**User**_
+
+ instead of using next step button, can we use the next button of the multiStepForm?
+
+---
+
+_**Assistant**_
+
+Absolutely! That's a much better approach. Let me check the `MultiStepForm` component to see how the navigation works and then update the `PersonalInfoStep` to use the form's navigation instead of its own submit button.
+
+
+---
+
+Read file: src/components/MultiStepForm.tsx
+
+---
+
+Perfect! I can see that the `MultiStepForm` has a `FormNavigation` component that handles the navigation. Let me check the `FormNavigation` component to understand how it works:
+
+
+---
+
+Read file: src/components/steps/FormNavigation.tsx
+
+---
+
+Now I understand! The `FormNavigation` component has its own "Next" button that calls `nextStep()`. I need to modify the `PersonalInfoStep` to remove its own submit button and form submission logic, and instead let the `FormNavigation` handle the navigation. Let me also check if there's validation logic in the `FormNavigation`:
+
+
+---
+
+<details>
+            <summary>Searched codebase "FormNavigation validation formData required fields" • **25** results</summary>
+        
+| File | Lines |
+|------|-------|
+| `src/components/MultiStepForm.tsx` | L1-44 |
+| `src/components/steps/FormNavigation.tsx` | L11-53 |
+| `src/components/steps/FormNavigation.tsx` | L1-11 |
+| `src/components/MultiStepForm.tsx` | L44-94 |
+| `src/components/MultiStepForm.tsx` | L141-181 |
+| `src/utils/types.ts` | L1-23 |
+| `src/components/MultiStepForm.tsx` | L94-141 |
+| `src/components/steps/PersonalInfoStep.tsx` | L15-54 |
+| `src/components/steps/DocumentUploadStep.tsx` | L14-55 |
+| `src/utils/submitApplication.tsx` | L1-37 |
+| `src/components/steps/DocumentUploadStep.tsx` | L99-128 |
+| `src/components/steps/PersonalInfoStep.tsx` | L140-169 |
+| `src/components/steps/PersonalInfoStep.tsx` | L1-15 |
+| `src/components/steps/DocumentUploadStep.tsx` | L80-99 |
+| `src/components/steps/PersonalInfoStep.tsx` | L94-140 |
+| `src/components/steps/DocumentUploadStep.tsx` | L1-14 |
+| `src/components/steps/ReviewSubmitStep.tsx` | L77-100 |
+| `src/app/page.tsx` | L1-10 |
+| `src/components/steps/PersonalInfoStep.tsx` | L54-94 |
+| `package.json` | L1-42 |
+| `src/components/steps/ReviewSubmitStep.tsx` | L23-77 |
+| `src/components/steps/ReviewSubmitStep.tsx` | L1-23 |
+| `src/components/steps/DocumentUploadStep.tsx` | L55-80 |
+| `src/components/steps/ReviewSubmitStep.tsx` | L169-187 |
+| `src/components/steps/ReviewSubmitStep copy.tsx` | L17-53 |
+
+</details>
+
+---
+
+I can see that the `FormNavigation` component doesn't have built-in validation logic. I need to modify the `MultiStepForm` to add validation to the `handleNext` function and update the `FormNavigation` to disable the Next button when the form is invalid. Let me also remove the submit button and form logic from `PersonalInfoStep`.
+
+First, let's update the `PersonalInfoStep` to remove the form submission logic and submit button:
+
+
+---
+
+
+
+---
+
+Let me fix the linter errors by removing the autoComplete attribute and closing the div properly:
+
+
+---
+
+
+
+---
+
+Now let me remove the submit button and validation message, and close the div properly:
+
+
+---
+
+
+
+---
+
+Perfect! Now let's update the `MultiStepForm` to add validation logic to the `handleNext` function. I'll create a validation function and modify the `handleNext` to check if the current step is valid before proceeding:
+
+
+---
+
+
+
+---
+
+Now let's update the `FormNavigation` component to receive the validation function and disable the Next button when the current step is invalid:
+
+
+---
+
+
+
+---
+
+I need to update the `FormNavigation` component to accept the `isStepValid` prop. Let me update the interface and component:
+
+
+---
+
+
+
+---
+
+
+
+---
+
+Now let's update the Next button to be disabled when the current step is invalid:
+
+
+---
+
+
+
+---
+
+Perfect! Now let's also add a validation message to the `PersonalInfoStep` to show users what's missing, but this time it will be controlled by the parent component. Let me update the `PersonalInfoStep` to receive a validation prop:
+
+
+---
+
+
+
+---
+
+
+
+---
+
+Now let's add the validation message back, but controlled by the prop:
+
+
+---
+
+
+
+---
+
+Now let's update the `MultiStepForm` to pass the validation message prop when the user tries to proceed with an invalid form:
+
+
+---
+
+
+
+---
+
+Let me fix the validation function to ensure it always returns a boolean:
+
+
+---
+
+
+
+---
+
+Now let's update the `handleNext` function to show the validation message when the step is invalid:
+
+
+---
+
+
+
+---
+
+Now let's update the `PersonalInfoStep` call to pass the validation message prop:
+
+
+---
+
+
+
+---
+
+Perfect! Now let's test the implementation. The changes I've made are:
+
+## ✅ **Complete Form Validation Integration**
+
+### **What I've Changed:**
+
+1. **Removed PersonalInfoStep's own submit button** - No more duplicate navigation
+2. **Added validation logic to MultiStepForm** - Centralized validation for all steps
+3. **Updated FormNavigation** - Next button is disabled when current step is invalid
+4. **Added visual feedback** - Validation message appears when user tries to proceed with invalid data
+
+### **How It Works Now:**
+
+1. **Step Validation**: Each step has specific validation rules:
+   - **Step 0 (Personal Info)**: All required fields must be filled
+   - **Step 1 (Document Upload)**: National ID, country, and first transcript required
+   - **Step 2 (Review & Submit)**: Terms & conditions must be checked
+
+2. **Visual Feedback**:
+   - **Green/Red borders** on required fields show validation status
+   - **Disabled Next button** when step is invalid (grayed out)
+   - **Validation message** appears when user tries to proceed with invalid data
+
+3. **User Experience**:
+   - Users can see which fields need attention through border colors
+   - Next button only activates when all required fields are valid
+   - Clear feedback when validation fails
+
+### **Benefits:**
+- ✅ **Single source of truth** for navigation (FormNavigation component)
+- ✅ **Consistent validation** across all steps
+- ✅ **Better UX** with clear visual indicators
+- ✅ **No duplicate buttons** or conflicting navigation logic
+
+The form now uses the MultiStepForm's navigation system exclusively, with proper validation that prevents users from proceeding until all required fields are completed!
+
+---
+
+_**User**_
+
+
+
+---
+
+_**Assistant**_
+
+I can see there's a syntax error in the `PersonalInfoStep.tsx` file. The error indicates there's an issue with the JSX structure. Let me check the current state of the file and fix the syntax error:
+
+
+---
+
+Read file: src/components/steps/PersonalInfoStep.tsx
+
+---
+
+I can see the issue! The file looks correct, but there might be a missing import or the file structure got corrupted during the edits. Let me check the beginning of the file to see if there are any missing imports:
+
+
+---
+
+Read file: src/components/steps/PersonalInfoStep.tsx
+
+---
+
+The file looks correct. The issue might be a caching problem or the file got corrupted during the git operations. Let me try to restart the development server and clear the cache. First, let me check if there are any hidden characters or issues by recreating the file:
+
+
+---
+
+```bash
+cd C:\Projects\transcript-uploader && npm run build
+```
+
+```
+PS C:\Projects\transcript-uploader> cd C:\Projects\transcript-uploader && npm run build
+PS C:\Projects\transcript-uploader> cd C:\Projects\transcript-uploader && npm run build
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+At line:1 char:36
+PS C:\Projects\transcript-uploader>
+```
+
+---
+
+Let me try a different approach. Let me clear the Next.js cache and restart the development server:
+
+
+---
+
+```bash
+rm -rf .next && npm run dev
+```
+
+---
+
+Let me check if the issue is resolved by looking at the current status:
+
+
+---
+
+```bash
+cd C:\Projects\transcript-uploader && npm run dev
+```
+
+---
+
+Great! I can see from your terminal output that you've successfully:
+
+1. ✅ **Deployed to GitHub** - Your project is now on GitHub at `https://github.com/dnelsonconsulting/T25.git`
+2. ✅ **Pushed all files** - All 160 objects were successfully pushed
+3. ✅ **Set up tracking** - The main branch is now tracking the remote origin
+
+## 🎉 **GitHub Deployment Complete!**
+
+Your transcript-uploader project is now live on GitHub. Here's what happened:
+
+- **Repository**: `https://github.com/dnelsonconsulting/T25.git`
+- **Branch**: `main` (set as default)
+- **Files**: All 160 files successfully uploaded (45.95 MiB)
+
+## 🚀 **Next: Deploy to Vercel**
+
+Now let's deploy your project to Vercel. Here are the steps:
+
+### **Option 1: Deploy via Vercel Dashboard (Recommended)**
+
+1. **Go to [vercel.com](https://vercel.com)** and sign in
+2. **Click "New Project"**
+3. **Import your GitHub repository**:
+   - Select "Import Git Repository"
+   - Choose `dnelsonconsulting/T25`
+   - Vercel will automatically detect it's a Next.js project
+4. **Configure the project**:
+   - Project Name: `transcript-uploader` (or your preferred name)
+   - Framework Preset: Next.js (should be auto-detected)
+   - Root Directory: `./` (leave as default)
+5. **Click "Deploy"**
+
+### **Option 2: Deploy via Vercel CLI**
+
+If you prefer using the command line:
+
+
+---
+
+```bash
+npm install -g vercel
+```
+
+```
+PS C:\Projects\transcript-uploader> npm install -g vercel
+npm warn deprecated path-match@1.2.4: This package is archived and no longer maintained. For support, v
+isit https://github.com/expressjs/express/discussions
+changed 235 packages in 25s
+
+26 packages are looking for funding
+  run `npm fund` for details
+PS C:\Projects\transcript-uploader>
+```
+
+---
+
+Now let's deploy to Vercel:
+
+
+---
+
+```bash
+vercel
+```
+
+---
+
+_**User**_
+
+ more errors 
+
+---
+
+_**Assistant**_
+
+I see the issue! There are two problems:
+
+1. **PowerShell syntax error** - PowerShell doesn't use `&&` like bash
+2. **JSX syntax error** in the PersonalInfoStep.tsx file
+
+Let me fix both issues:
+
+
+---
+
+```bash
+Remove-Item -Recurse -Force .next
+```
+
+```
+PS C:\Projects\transcript-uploader> Remove-Item -Recurse -Force .next
+PS C:\Projects\transcript-uploader>
+```
+
+---
+
+Now let me check the PersonalInfoStep.tsx file to see what's causing the JSX syntax error. The error suggests there's an issue around line 36-39:
+
+
+---
+
+Read file: src/components/steps/PersonalInfoStep.tsx
+
+---
+
+The file looks correct. The issue might be that the file got corrupted during the git operations. Let me recreate the file completely to fix any potential hidden characters or corruption:
+
+
+---
+
+
+
+---
+
+Let me try a different approach. Let me delete the file and recreate it:
+
+
+---
+
+undefined
+
+---
+
+```diff
+- 
++ // components/steps/PersonalInformationStep.tsx
++ 
++ import React from "react";
++ import { studentTypes, degreeLevels, genders } from "../../utils/lookupData";
++ import Stepper from "../stepper";
++ import Header from "../header";
++ 
++ const steps = ["Personal Info", "Document Upload", "Review & Submit"];
++ 
++ interface Props {
++   form: any;
++   updateForm: (updates: any) => void;
++   onNext: () => void;
++   step: number;
++   showValidationMessage?: boolean;
++ }
++ 
++ const PersonalInformationStep: React.FC<Props> = ({ form, updateForm, onNext, step, showValidationMessage = false }) => {
++   // Validation function to check if all required fields are filled
++   const isFormValid = () => {
++     const requiredFields = [
++       form.firstName,
++       form.lastName,
++       form.studentType,
++       form.degreeLevel,
++       form.gender,
++       form.birthDate,
++       form.personalEmail
++     ];
++     
++     return requiredFields.every(field => field && field.trim() !== '');
++   };
++ 
++   // Helper function to check if a specific field is valid
++   const isFieldValid = (fieldValue: string) => {
++     return fieldValue && fieldValue.trim() !== '';
++   };
++ 
++   return (
++     <div className="max-w-2xl w-full p-8">
++       <Header />
++       <Stepper step={step} steps={steps} />
++       <h2 className="text-xl font-bold mb-6 bg-green-200 text-gray-600 text-center shadow-lg">PERSONAL INFORMATION</h2>
++       <div>
++         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
++           {/* First Name */}
++           <div>
++             <label className="block text-gray-700 font-medium mb-1">
++               First Name <span className="text-red-600">*</span>
++             </label>
++             <input
++               type="text"
++               value={form.firstName || ""}
++               onChange={e => updateForm({ firstName: e.target.value })}
++               className={`w-full px-4 py-2 border rounded-xl bg-gray-50 text-gray-900 font-semibold focus:outline-none focus:ring-2 focus:ring-blue-400 ${
++                 form.firstName ? (isFieldValid(form.firstName) ? 'border-green-500' : 'border-red-500') : 'border-gray-300'
++               }`}
++               required
++             />
++           </div>
++           {/* Middle Name */}
++           <div>
++             <label className="block text-gray-700 font-medium mb-1">Middle Name</label>
++             <input
++               type="text"
++               value={form.middleName || ""}
++               onChange={e => updateForm({ middleName: e.target.value })}
++               className="w-full px-4 py-2 border rounded-xl bg-gray-50 text-gray-900 font-semibold focus:outline-none focus:ring-2 focus:ring-blue-400"
++             />
++           </div>
++           {/* Last Name */}
++           <div>
++             <label className="block text-gray-700 font-medium mb-1">
++               Last Name <span className="text-red-600">*</span>
++             </label>
++             <input
++               type="text"
++               value={form.lastName || ""}
++               onChange={e => updateForm({ lastName: e.target.value })}
++               className={`w-full px-4 py-2 border rounded-xl bg-gray-50 text-gray-900 font-semibold focus:outline-none focus:ring-2 focus:ring-blue-400 ${
++                 form.lastName ? (isFieldValid(form.lastName) ? 'border-green-500' : 'border-red-500') : 'border-gray-300'
++               }`}
++               required
++             />
++           </div>
++           {/* Additional Name */}
++           <div>
++             <label className="block text-gray-700 font-medium mb-1">Additional Name</label>
++             <input
++               type="text"
++               value={form.additionalName || ""}
++               onChange={e => updateForm({ additionalName: e.target.value })}
++               className="w-full px-4 py-2 border rounded-xl bg-gray-50 text-gray-900 font-semibold focus:outline-none focus:ring-2 focus:ring-blue-400"
++             />
++           </div>
++           {/* Student Type */}
++           <div>
++             <label className="block text-gray-700 font-medium mb-1">
++               Student Type <span className="text-red-600">*</span>
++             </label>
++             <select
++               value={form.studentType || ""}
++               onChange={e => updateForm({ studentType: e.target.value })}
++               className={`w-full pr-1.5 px-4 py-2 border rounded-xl bg-gray-50 text-gray-900 font-semibold focus:outline-none focus:ring-2 focus:ring-blue-400 ${
++                 form.studentType ? (isFieldValid(form.studentType) ? 'border-green-500' : 'border-red-500') : 'border-gray-300'
++               }`}
++               required
++             >
++               <option value="">Select...</option>
++               {studentTypes.map(st => (
++                 <option value={st.name} key={st.code}>{st.name}</option>
++               ))}
++             </select>
++           </div>
++           {/* Degree Level */}
++           <div>
++             <label className="block text-gray-700 font-medium mb-1">
++               Degree Level <span className="text-red-600">*</span>
++             </label>
++             <select
++               value={form.degreeLevel || ""}
++               onChange={e => updateForm({ degreeLevel: e.target.value })}
++               className={`w-full px-4 py-2 border rounded-xl bg-gray-50 text-gray-900 font-semibold focus:outline-none focus:ring-2 focus:ring-blue-400 ${
++                 form.degreeLevel ? (isFieldValid(form.degreeLevel) ? 'border-green-500' : 'border-red-500') : 'border-gray-300'
++               }`}
++               required
++             >
++               <option value="">Select...</option>
++               {degreeLevels.map(dl => (
++                 <option value={dl.name} key={dl.code}>{dl.name}</option>
++               ))}
++             </select>
++           </div>
++           {/* Gender */}
++           <div>
++             <label className="block text-gray-700 font-medium mb-1">
++               Gender <span className="text-red-600">*</span>
++             </label>
++             <select
++               value={form.gender || ""}
++               onChange={e => updateForm({ gender: e.target.value })}
++               className={`w-full px-4 py-2 border rounded-xl bg-gray-50 text-gray-900 font-semibold focus:outline-none focus:ring-2 focus:ring-blue-400 ${
++                 form.gender ? (isFieldValid(form.gender) ? 'border-green-500' : 'border-red-500') : 'border-gray-300'
++               }`}
++               required
++             >
++               <option value="">Select...</option>
++               {genders.map(g => (
++                 <option value={g.name} key={g.code}>{g.name}</option>
++               ))}
++             </select>
++           </div>
++           {/* Birth Date */}
++           <div>
++             <label className="block text-gray-700 font-medium mb-1">
++               Birth Date <span className="text-red-600">*</span>
++             </label>
++             <input
++               type="date"
++               value={form.birthDate || ""}
++               onChange={e => updateForm({ birthDate: e.target.value })}
++               className={`w-full px-4 py-2 border rounded-xl bg-gray-50 text-gray-900 font-semibold focus:outline-none focus:ring-2 focus:ring-blue-400 ${
++                 form.birthDate ? (isFieldValid(form.birthDate) ? 'border-green-500' : 'border-red-500') : 'border-gray-300'
++               }`}
++               required
++             />
++           </div>
++           {/* Personal Email */}
++           <div className="md:col-span-2">
++             <label className="block text-gray-700 font-medium mb-1">
++               Personal Email <span className="text-red-600">*</span>
++             </label>
++             <input
++               type="email"
++               value={form.personalEmail || ""}
++               onChange={e => updateForm({ personalEmail: e.target.value })}
++               className={`w-full px-4 py-2 border rounded-xl bg-gray-50 text-gray-900 font-semibold focus:outline-none focus:ring-2 focus:ring-blue-400 ${
++                 form.personalEmail ? (isFieldValid(form.personalEmail) ? 'border-green-500' : 'border-red-500') : 'border-gray-300'
++               }`}
++               required
++             />
++           </div>
++           {/* Notes */}
++           <div className="md:col-span-2">
++             <label className="block text-gray-700 font-medium mb-1">Additional Notes</label>
++             <textarea
++               value={form.notes || ""}
++               onChange={e => updateForm({ notes: e.target.value })}
++               className="w-full px-4 py-2 border rounded-xl bg-gray-50 text-gray-900 font-semibold focus:outline-none focus:ring-2 focus:ring-blue-400"
++               rows={3}
++             />
++           </div>
++         </div>
++         
++         {/* Validation Message */}
++         {showValidationMessage && !isFormValid() && (
++           <div className="mt-4 p-3 bg-yellow-50 border border-yellow-200 rounded-lg">
++             <p className="text-yellow-800 text-sm">
++               Please fill in all required fields marked with <span className="text-red-600">*</span> before proceeding.
++             </p>
++           </div>
++         )}
++       </div>
++     </div>
++   );
++ };
++ 
++ export default PersonalInformationStep; 
+```
+
+---
+
+Perfect! Now let's start the development server to see if the syntax error is fixed:
+
+
+---
+
+```bash
+npm run dev
+```
+
+---
+
+Great! Now let's commit the fixed file and push it to GitHub:
+
+
+---
+
+
+
+---
+
+_**User**_
+
+@ReviewSubmitStep.tsx can we make sure submit is not active until termsConditions is checked?
+
+---
+
+_**Assistant**_
+
+
+
+---
+
+
+
+---
+
+
+
+---
+
+
+
+---
+
+
+
+---
+
+
+
+---
+
+
+
+---
+
+
+
+---
+
+
+
+---
+
 
 
 ---

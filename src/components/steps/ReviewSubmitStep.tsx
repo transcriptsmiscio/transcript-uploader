@@ -166,19 +166,31 @@ export default function ReviewSubmitStep({
       </div>
 
       {/* Confirmation Checkbox */}
-      <div className="mb-6 flex items-center">
-        <input
-          id="accuracy"
-          type="checkbox"
-          className="mr-2 accent-blue-600"
-          checked={form.termsConditions || false}
-          onChange={(e) => updateForm({ termsConditions: e.target.checked })}
-          required
-        />
-        <label htmlFor="accuracy" className="text-gray-900 font-medium"><span className="text-red-600">*</span>
-          I have double-checked all my inputs and confirm their accuracy. 
-          I understand that the information I have provided is accurate and that any false information will result in the rejection of my application.
-        </label>
+      <div className="mb-6">
+        <div className="flex items-center">
+          <input
+            id="accuracy"
+            type="checkbox"
+            className={`mr-2 accent-blue-600 ${
+              form.termsConditions ? 'border-green-500' : 'border-gray-300'
+            }`}
+            checked={form.termsConditions || false}
+            onChange={(e) => updateForm({ termsConditions: e.target.checked })}
+            required
+          />
+          <label htmlFor="accuracy" className="text-gray-900 font-medium">
+            <span className="text-red-600">*</span>
+            I have double-checked all my inputs and confirm their accuracy. 
+            I understand that the information I have provided is accurate and that any false information will result in the rejection of my application.
+          </label>
+        </div>
+        {!form.termsConditions && (
+          <div className="mt-2 p-2 bg-yellow-50 border border-yellow-200 rounded-lg">
+            <p className="text-yellow-800 text-sm">
+              Please check the confirmation box above to proceed with submission.
+            </p>
+          </div>
+        )}
       </div>
 
       {/* File Preview Modal */}

@@ -50,17 +50,54 @@ export default function MultiStepForm() {
 
   const [submitting, setSubmitting] = useState(false);
   const [submitResult, setSubmitResult] = useState<{ error?: string; success?: string } | null>(null);
+  const [showValidationMessage, setShowValidationMessage] = useState(false);
 
   const handleChange = (updates: any) => {
     setFormData(prev => ({ ...prev, ...updates }));
   };
 
-  const handleNext = () => setStep(s => Math.min(s + 1, stepsCount - 1));
+  // Validation function for each step
+  const isStepValid = (currentStep: number): boolean => {
+    switch (currentStep) {
+      case 0: // Personal Info step
+        const requiredFields = [
+          formData.firstName,
+          formData.lastName,
+          formData.studentType,
+          formData.degreeLevel,
+          formData.gender,
+          formData.birthDate,
+          formData.personalEmail
+        ];
+        return requiredFields.every(field => field && field.trim() !== '');
+      case 1: // Document Upload step
+        return !!(formData.nationalID && formData.nationalCountryCode && formData.transcript1 && formData.t1CountryCode);
+      case 2: // Review & Submit step
+        return !!formData.termsConditions;
+      default:
+        return true;
+    }
+  };
+
+  const handleNext = () => {
+    if (isStepValid(step)) {
+      setStep(s => Math.min(s + 1, stepsCount - 1));
+      setShowValidationMessage(false);
+    } else {
+      setShowValidationMessage(true);
+    }
+  };
   const handleBack = () => setStep(s => Math.max(s - 1, 0));
 
   const handleSubmit = async () => {
-  setSubmitting(true);
-  setSubmitResult(null);
+    // Double-check that terms and conditions are accepted
+    if (!formData.termsConditions) {
+      setSubmitResult({ error: "Please accept the terms and conditions before submitting." });
+      return;
+    }
+    
+    setSubmitting(true);
+    setSubmitResult(null);
 
   // Lookup code values for studentType and degreeLevel
   const studentTypeObj = studentTypes.find(st => st.name === formData.studentType || st.code === formData.studentType);
@@ -149,7 +186,13 @@ export default function MultiStepForm() {
       ) : (
         <>
           {step === 0 && (
-            <Step1PersonalInfo form={formData} updateForm={handleChange} onNext={handleNext} step={1} />
+            <Step1PersonalInfo 
+              form={formData} 
+              updateForm={handleChange} 
+              onNext={handleNext} 
+              step={1} 
+              showValidationMessage={showValidationMessage}
+            />
           )}
           {step === 1 && (
             <Step2DocumentUpload form={formData} updateForm={handleChange} onNext={handleNext} onBack={handleBack} step={2} />
@@ -173,6 +216,7 @@ export default function MultiStepForm() {
             handleSubmit={handleSubmit}
             formData={formData}
             submitting={submitting}
+            isStepValid={isStepValid}
           />
         </>
       )}

@@ -8,6 +8,7 @@ interface Props {
   handleSubmit: () => void;
   formData: any;
   submitting?: boolean;
+  isStepValid?: (currentStep: number) => boolean;
 }
 
 export default function FormNavigation({
@@ -18,6 +19,7 @@ export default function FormNavigation({
   handleSubmit,
   formData,
   submitting = false,
+  isStepValid,
 }: Props) {
   return (
     <div className={`flex mt-8 ${step === 0 ? "justify-end" : "justify-between"}`}>
@@ -32,7 +34,11 @@ export default function FormNavigation({
       )}
       {step === stepsCount - 1 ? (
         <button
-          className="px-6 py-2 bg-blue-600 text-white rounded-xl hover:bg-blue-700"
+          className={`px-6 py-2 rounded-xl transition-colors ${
+            formData.termsConditions && !submitting
+              ? 'bg-blue-600 text-white hover:bg-blue-700'
+              : 'bg-gray-300 text-gray-500 cursor-not-allowed'
+          }`}
           onClick={handleSubmit}
           type="button"
           disabled={!formData.termsConditions || submitting}
@@ -41,9 +47,14 @@ export default function FormNavigation({
         </button>
       ) : (
         <button
-          className="px-6 py-2 bg-blue-600 text-white rounded-xl hover:bg-blue-700"
+          className={`px-6 py-2 rounded-xl transition-colors ${
+            isStepValid && isStepValid(step)
+              ? 'bg-blue-600 text-white hover:bg-blue-700'
+              : 'bg-gray-300 text-gray-500 cursor-not-allowed'
+          }`}
           onClick={nextStep}
           type="button"
+          disabled={!isStepValid || !isStepValid(step)}
         >
           Next
         </button>
