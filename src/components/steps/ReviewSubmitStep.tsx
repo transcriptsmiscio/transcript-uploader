@@ -86,12 +86,9 @@ export default function ReviewSubmitStep({
       <div className="bg-blue-50 rounded-lg p-4 mb-6 border border-blue-300">
         <div className="text-xl font-semibold mb-4">Personal Information</div>
         <div className="text-blue-500"><strong>Full Name:</strong> {fullName || <span className="text-gray-400">N/A</span>}</div>
-          <div className="text-blue-500"><strong>Student Type:</strong> {form.studentType || <span className="text-gray-400">N/A</span>} <span className="ml-1 text-xs text-gray-400">[{studentTypeCode}]</span></div>
-        <div className="text-blue-500"><strong>Degree Level:</strong> {form.degreeLevel || <span className="text-gray-400">N/A</span>} <span className="ml-1 text-xs text-gray-400">[{degreeLevelCode}]</span></div>
-        <div className="text-blue-500"><strong>Gender:</strong> {form.gender || <span className="text-gray-400">N/A</span>}
-    {genderCode && (
-    <span className="ml-1 text-xs text-gray-500">[{genderCode}]</span>
-  )}</div>
+        <div className="text-blue-500"><strong>Student Type:</strong> {form.studentType || <span className="text-gray-400">N/A</span>}</div>
+        <div className="text-blue-500"><strong>Degree Level:</strong> {form.degreeLevel || <span className="text-gray-400">N/A</span>}</div>
+        <div className="text-blue-500"><strong>Gender:</strong> {form.gender || <span className="text-gray-400">N/A</span>}</div>
         <div className="text-blue-500"><strong>Birth Date:</strong> {form.birthDate || <span className="text-gray-400">N/A</span>}</div>
         <div className="text-blue-500"><strong>Email:</strong> {form.personalEmail || <span className="text-gray-400">N/A</span>}</div>
         <div className="text-blue-500"><strong>Notes:</strong> {form.notes || <span className="text-gray-400">N/A</span>}</div>
@@ -125,9 +122,7 @@ export default function ReviewSubmitStep({
                 <TrashIcon className="h-5 w-5" />
               </button>
             </div>
-            <div className="text-sm text-gray-500">
-              Expected filename: <span className="font-mono">{`${baseFileName}_${nationalCode}-ID`}</span>
-            </div>
+          
           </div>
         )}
 
@@ -157,40 +152,28 @@ export default function ReviewSubmitStep({
                   <TrashIcon className="h-5 w-5" />
                 </button>
               </div>
-              <div className="text-sm text-gray-500">
-                Expected filename: <span className="font-mono">{`${baseFileName}_${countryCode}-T${num}`}</span>
-              </div>
+             {/* REMOVED expected filename<div className="text-sm text-gray-500">
+               Expected filename: <span className="font-mono">{`${baseFileName}_${countryCode}-T${num}`}</span>
+             </div> */}
             </div>
           ) : null
         )}
       </div>
 
       {/* Confirmation Checkbox */}
-      <div className="mb-6">
-        <div className="flex items-center">
-          <input
-            id="accuracy"
-            type="checkbox"
-            className={`mr-2 accent-blue-600 ${
-              form.termsConditions ? 'border-green-500' : 'border-gray-300'
-            }`}
-            checked={form.termsConditions || false}
-            onChange={(e) => updateForm({ termsConditions: e.target.checked })}
-            required
-          />
-          <label htmlFor="accuracy" className="text-gray-900 font-medium">
-            <span className="text-red-600">*</span>
-            I have double-checked all my inputs and confirm their accuracy. 
-            I understand that the information I have provided is accurate and that any false information will result in the rejection of my application.
-          </label>
-        </div>
-        {!form.termsConditions && (
-          <div className="mt-2 p-2 bg-yellow-50 border border-yellow-200 rounded-lg">
-            <p className="text-yellow-800 text-sm">
-              Please check the confirmation box above to proceed with submission.
-            </p>
-          </div>
-        )}
+      <div className="mb-6 flex items-center">
+        <input
+          id="accuracy"
+          type="checkbox"
+          className="mr-2 accent-blue-600"
+          checked={form.termsConditions || false}
+          onChange={(e) => updateForm({ termsConditions: e.target.checked })}
+          required
+        />
+        <label htmlFor="accuracy" className="text-gray-900 font-medium"><span className="text-red-600">*</span>
+          I have double-checked all my inputs and confirm their accuracy. 
+          I understand that the information I have provided is accurate and that any false information will result in the rejection of my application.
+        </label>
       </div>
 
       {/* File Preview Modal */}

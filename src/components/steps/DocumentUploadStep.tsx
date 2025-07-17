@@ -46,10 +46,13 @@ export default function DocumentUploadStep({
               accept=".pdf,.jpg,.jpeg,.png"
               className="w-full border rounded-xl px-4 py-2 bg-gray-50 text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-400 h-12"
               required
+              value={form.nationalID ? "" : undefined}
               onChange={e => updateForm({ nationalID: e.target.files?.[0] })}
             />
-            {form.n && (
-              <span className="text-xs text-gray-500 mt-1">Selected: {form.nationalID.name}</span>
+            {form.nationalID && (
+              <span className="text-xs text-gray-500 mt-1">
+                Selected: {form.nationalID.name}
+              </span>
             )}
           </div>
           <div className="flex flex-col flex-1 min-w-[250px] max-w-md">
