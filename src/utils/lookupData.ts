@@ -20,7 +20,7 @@ export const degreeLevels = [
   {name: "Graduate Certificate", code: "GradCert"},
   {name: "MBA", code: "MBA"},
   {name: "Other Master's", code: "Masters"},
-  {name: "Doctorial", code: "Doctorate"},
+  {name: "Doctoral", code: "Doctorate"},
 ];
 
 export const genders = [
