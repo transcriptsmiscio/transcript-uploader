@@ -152,8 +152,11 @@ export default function ReviewSubmitStep({
           required
         />
         <label htmlFor="accuracy" className="text-gray-900 font-medium"><span className="text-red-600">*</span>
-          I have double-checked all my inputs and confirm their accuracy. 
-          I understand that the information I have provided is accurate and that any false information will result in the rejection of my application.
+          I confirm that I have carefully reviewed all information entered and that it is accurate and complete
+          to the best of my knowledge. I understand that submitting incomplete information, or documents that 
+          do not meet the stated transcript requirements, may result in delays or the rejection of my application. 
+          I also acknowledge that not all international degrees are guaranteed to be recognized as equivalent to 
+          U.S. degrees, particularly if the institution is not accredited.
         </label>
       </div>
     </div>

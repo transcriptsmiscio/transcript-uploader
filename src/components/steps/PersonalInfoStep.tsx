@@ -77,7 +77,7 @@ const PersonalInformationStep: React.FC<Props> = ({ form, updateForm, onNext, st
           {/* Student Type */}
           <div>
             <label className="block text-gray-700 font-medium mb-1">
-              Student Type <span className="text-red-600">*</span>
+              Student Location <span className="text-red-600">*</span>
             </label>
             <select
               value={form.studentType || ""}

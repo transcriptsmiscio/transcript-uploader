@@ -12,7 +12,7 @@ export type Gender = { name: string; code: string; };
 export const studentTypes = [
   {name: "Ugandan Student", code: "1UG01"},
   {name: "International Student (Not from Uganda)", code: "MSOHQ"},
-  {name: "Domestic Student in OneHope", code: "PPNO"},
+  {name: "United States Student", code: "PPNO"},
 ];
 
 export const degreeLevels = [
