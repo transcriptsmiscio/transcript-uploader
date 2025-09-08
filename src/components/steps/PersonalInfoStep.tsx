@@ -31,7 +31,7 @@ const PersonalInformationStep: React.FC<Props> = ({ form, updateForm, onNext, st
           {/* First Name */}
           <div>
             <label className="block text-gray-700 font-medium mb-1">
-              First Name <span className="text-red-600">*</span>
+              First (Given) Name <span className="text-red-600">*</span>
             </label>
             <input
               type="text"
@@ -54,7 +54,7 @@ const PersonalInformationStep: React.FC<Props> = ({ form, updateForm, onNext, st
           {/* Last Name */}
           <div>
             <label className="block text-gray-700 font-medium mb-1">
-              Last Name <span className="text-red-600">*</span>
+              Last (Family) Name <span className="text-red-600">*</span>
             </label>
             <input
               type="text"
