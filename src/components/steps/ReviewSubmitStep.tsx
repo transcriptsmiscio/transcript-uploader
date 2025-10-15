@@ -10,7 +10,13 @@ import Header from "../header";
 import Stepper from "../stepper";
 import { genders, degreeLevels, studentTypes } from "../../utils/lookupData";
 
-const steps = ["Personal Info", "Document Upload", "Review & Submit"];
+const steps = [
+  "Personal Info",
+  "ID Upload",
+  "Transcript Upload",
+  "Additional Documents",
+  "Review & Submit",
+];
 
 interface Props {
   form: any;
@@ -78,23 +84,24 @@ export default function ReviewSubmitStep({
 
   return (
     <div className="max-w-2xl mx-auto p-6">
-      <Header />
+      <Header accent="brand-beige" />
       <Stepper step={step} steps={steps} />
 
-      <h2 className="text-xl font-bold mb-6 bg-green-200 text-gray-600 text-center shadow-lg">REVIEW &amp; SUBMIT</h2>
+      <h2 className="text-xl font-semibold mb-6 text-center text-brand-beige">REVIEW &amp; SUBMIT</h2>
 
-      <div className="bg-blue-50 rounded-lg p-4 mb-6 border border-blue-300">
+      <div className="rounded-lg p-4 mb-6 border">
         <div className="text-xl font-semibold mb-4">Personal Information</div>
-        <div className="text-blue-500"><strong>Full Name:</strong> {fullName || <span className="text-gray-400">N/A</span>}</div>
-        <div className="text-blue-500"><strong>Student Type:</strong> {form.studentType || <span className="text-gray-400">N/A</span>}</div>
-        <div className="text-blue-500"><strong>Degree Level:</strong> {form.degreeLevel || <span className="text-gray-400">N/A</span>}</div>
-        <div className="text-blue-500"><strong>Gender:</strong> {form.gender || <span className="text-gray-400">N/A</span>}</div>
-        <div className="text-blue-500"><strong>Birth Date:</strong> {form.birthDate || <span className="text-gray-400">N/A</span>}</div>
-        <div className="text-blue-500"><strong>Email:</strong> {form.personalEmail || <span className="text-gray-400">N/A</span>}</div>
-        <div className="text-blue-500"><strong>Notes:</strong> {form.notes || <span className="text-gray-400">N/A</span>}</div>
+        <div><strong>Full Name:</strong> {fullName || <span className="text-gray-400">N/A</span>}</div>
+        <div><strong>Student Type:</strong> {form.studentType || <span className="text-gray-400">N/A</span>}</div>
+        <div><strong>Degree Level:</strong> {form.degreeLevel || <span className="text-gray-400">N/A</span>}</div>
+        <div><strong>Gender:</strong> {form.gender || <span className="text-gray-400">N/A</span>}</div>
+        <div><strong>Birth Date:</strong> {form.birthDate || <span className="text-gray-400">N/A</span>}</div>
+        <div><strong>Email:</strong> {form.personalEmail || <span className="text-gray-400">N/A</span>}</div>
+        <div><strong>Notes:</strong> {form.notes || <span className="text-gray-400">N/A</span>}</div>
+        <div><strong>Additional Comments:</strong> {form.additionalComments || <span className="text-gray-400">N/A</span>}</div>
       </div>
 
-      <div className="bg-white shadow-md rounded-lg p-6 mb-6">
+      <div className="rounded-lg p-6 mb-6 border">
         <h3 className="text-xl font-semibold mb-4">Uploaded Documents</h3>
 
         {/* National ID */}
@@ -158,6 +165,61 @@ export default function ReviewSubmitStep({
             </div>
           ) : null
         )}
+
+        {/* Additional Documents */}
+        {(form.additionalDoc1 || form.additionalDoc2) && (
+          <div className="mt-6">
+            <div className="text-lg font-semibold mb-2">Additional Documents</div>
+            {form.additionalDoc1 && (
+              <div className="mb-3">
+                <div className="font-medium">Additional Document 1</div>
+                <div className="flex items-center gap-1">
+                  <span className="mr-2">{form.additionalDoc1.name}</span>
+                  <button
+                    type="button"
+                    onClick={() => handlePreview(form.additionalDoc1, form.additionalDoc1.name)}
+                    className="p-1 text-blue-500 hover:text-blue-700"
+                    aria-label={`Preview Additional Document 1`}
+                  >
+                    <EyeIcon className="h-5 w-5" />
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => updateForm({ additionalDoc1: undefined })}
+                    className="p-1 text-red-500 hover:text-red-700"
+                    aria-label={`Remove Additional Document 1`}
+                  >
+                    <TrashIcon className="h-5 w-5" />
+                  </button>
+                </div>
+              </div>
+            )}
+            {form.additionalDoc2 && (
+              <div className="mb-3">
+                <div className="font-medium">Additional Document 2</div>
+                <div className="flex items-center gap-1">
+                  <span className="mr-2">{form.additionalDoc2.name}</span>
+                  <button
+                    type="button"
+                    onClick={() => handlePreview(form.additionalDoc2, form.additionalDoc2.name)}
+                    className="p-1 text-blue-500 hover:text-blue-700"
+                    aria-label={`Preview Additional Document 2`}
+                  >
+                    <EyeIcon className="h-5 w-5" />
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => updateForm({ additionalDoc2: undefined })}
+                    className="p-1 text-red-500 hover:text-red-700"
+                    aria-label={`Remove Additional Document 2`}
+                  >
+                    <TrashIcon className="h-5 w-5" />
+                  </button>
+                </div>
+              </div>
+            )}
+          </div>
+        )}
       </div>
 
       {/* Confirmation Checkbox */}
@@ -171,8 +233,11 @@ export default function ReviewSubmitStep({
           required
         />
         <label htmlFor="accuracy" className="text-gray-900 font-medium"><span className="text-red-600">*</span>
-          I have double-checked all my inputs and confirm their accuracy. 
-          I understand that the information I have provided is accurate and that any false information will result in the rejection of my application.
+          I confirm that I have carefully reviewed all information entered and that it is accurate and complete
+          to the best of my knowledge. I understand that submitting incomplete information, or documents that 
+          do not meet the stated transcript requirements, may result in delays or the rejection of my application. 
+          I also acknowledge that not all international degrees are guaranteed to be recognized as equivalent to 
+          U.S. degrees, particularly if the institution is not accredited.
         </label>
       </div>
 

@@ -9,7 +9,7 @@ export async function submitApplication(form: ApplicationFormData) {
   for (const [key, val] of Object.entries(form)) {
     // If it's a file, add it as a file
     if (
-      ["NationalID", "Transcript1", "Transcript2", "Transcript3", "Transcript4"].includes(key)
+      ["NationalID", "Transcript1", "Transcript2", "AdditionalDocs1", "AdditionalDocs2"].includes(key)
     ) {
       if (val) formData.append(key, val, val.name);
     } else if (val !== undefined && val !== null) {

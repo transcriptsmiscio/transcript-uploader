@@ -25,7 +25,8 @@
     "tailwindcss": "^3.4.17",
     "autoprefixer": "^10.4.21",
     "postcss": "^8.5.6",
-    "zod": "^3.25.64"
+    "zod": "^3.25.64",
+    "googleapis": "^131.0.0"
   },
   "devDependencies": {
     "@types/node": "^20",

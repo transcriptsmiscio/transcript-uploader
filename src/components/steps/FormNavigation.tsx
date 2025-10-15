@@ -8,6 +8,7 @@ interface Props {
   handleSubmit: () => void;
   formData: any;
   submitting?: boolean;
+  canProceed?: boolean;
 }
 
 export default function FormNavigation({
@@ -18,12 +19,13 @@ export default function FormNavigation({
   handleSubmit,
   formData,
   submitting = false,
+  canProceed = true,
 }: Props) {
   return (
     <div className={`flex mt-8 ${step === 0 ? "justify-end" : "justify-between"}`}>
       {step > 0 && (
         <button
-          className="px-6 py-2 bg-gray-200 text-gray-700 rounded-xl hover:bg-gray-300"
+          className="px-6 py-2 border rounded-xl text-brand-navy"
           onClick={prevStep}
           type="button"
         >
@@ -32,18 +34,29 @@ export default function FormNavigation({
       )}
       {step === stepsCount - 1 ? (
         <button
-          className="px-6 py-2 bg-blue-600 text-white rounded-xl hover:bg-blue-700"
+          className={`px-6 py-2 border rounded-xl ${
+            !formData.termsConditions || submitting
+              ? "bg-gray-200 text-gray-400 border-gray-300 cursor-not-allowed opacity-70"
+              : "bg-brand-navy text-white cursor-pointer"
+          }`}
           onClick={handleSubmit}
           type="button"
           disabled={!formData.termsConditions || submitting}
+          aria-disabled={!formData.termsConditions || submitting}
         >
           {submitting ? "Submitting..." : "Submit"}
         </button>
       ) : (
         <button
-          className="px-6 py-2 bg-blue-600 text-white rounded-xl hover:bg-blue-700"
+          className={`px-6 py-2 border rounded-xl ${
+            canProceed
+              ? "bg-brand-navy text-white cursor-pointer"
+              : "bg-gray-200 text-gray-400 border-gray-300 cursor-not-allowed opacity-70"
+          }`}
           onClick={nextStep}
           type="button"
+          disabled={!canProceed}
+          aria-disabled={!canProceed}
         >
           Next
         </button>

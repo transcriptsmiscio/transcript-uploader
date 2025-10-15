@@ -15,10 +15,10 @@ export interface FormData {
   T1_Country: string;
   Transcript2: File | null;
   T2_Country: string;
-  Transcript3: File | null;
-  T3_Country: string;
-  Transcript4: File | null;
-  T4_Country: string;
+  AdditionalDocs1: File | null;
+  AdditionalDocs1_Country: string;
+  AdditionalDocs2: File | null;
+  AdditionalDocs2_Country: string;
   Terms_Conditions: boolean;
 }
 

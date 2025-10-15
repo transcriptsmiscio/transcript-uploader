@@ -3,6 +3,8 @@ import { useState } from "react";
 import Step1PersonalInfo from "./steps/PersonalInfoStep";
 import Step2DocumentUpload from "./steps/DocumentUploadStep";
 import Step3ReviewSubmit from "./steps/ReviewSubmitStep";
+import Step3AdditionalDetails from "./steps/AdditionalDetailsStep";
+import AdditionalDocumentsStep from "./steps/AdditionalDocumentsStep";
 import FormNavigation from "./steps/FormNavigation";
 import SuccessStep from "./steps/SuccessStep";
 import { studentTypes, degreeLevels, genders } from "../utils/lookupData";
@@ -22,7 +24,9 @@ const initialFormData = {
   personalEmail: "",
   notes: "",
   termsConditions: false,
-
+  // Additional Details (optional)
+  referenceNumber: "",
+  additionalComments: "",
   // Country Data (consistent naming)
   nationalCountry: "",
   nationalCountryCode: "",
@@ -34,19 +38,21 @@ const initialFormData = {
   t3CountryCode: "",
   t4Country: "",
   t4CountryCode: "",
-
   // Files (consistent naming)
   nationalID: null,
   transcript1: null,
   transcript2: null,
   transcript3: null,
   transcript4: null,
+  // Additional Documents (optional)
+  additionalDoc1: null,
+  additionalDoc2: null,
 };
 
 export default function MultiStepForm() {
   const [step, setStep] = useState(0);
   const [formData, setFormData] = useState(initialFormData);
-  const stepsCount = 3;
+  const stepsCount = 5;
 
   const [submitting, setSubmitting] = useState(false);
   const [submitResult, setSubmitResult] = useState<{ error?: string; success?: string } | null>(null);
@@ -86,6 +92,9 @@ export default function MultiStepForm() {
       ? `${baseFileName}_${(formData as any)[`t${num}CountryCode`]}-T${num}`
       : ''
   );
+  // Additional documents filenames (if provided)
+  const additionalDocs1FileNames = (formData as any).additionalDoc1 ? `${baseFileName}-AD1` : '';
+  const additionalDocs2FileNames = (formData as any).additionalDoc2 ? `${baseFileName}-AD2` : '';
 
   // Prepare the submission data
   const submissionData: { [key: string]: any } = { ...formData };
@@ -94,14 +103,25 @@ export default function MultiStepForm() {
   submissionData.gender = genderCode;
   submissionData.studentType = studentTypeCode;
   submissionData.degreeLevel = degreeLevelCode;
+  // Include folder name for backend to create outer folder and store its URL in Sheets 'Folder' column
+  submissionData.folder = baseFileName;
   submissionData.nationalIDFilename = nationalIDFilename;
   submissionData.transcript1Filename = transcriptFileNames[0];
   submissionData.transcript2Filename = transcriptFileNames[1];
-  submissionData.transcript3Filename = transcriptFileNames[2];
-  submissionData.transcript4Filename = transcriptFileNames[3];
+  submissionData.additionalDocs1Filename = additionalDocs1FileNames;
+  submissionData.additionalDocs2Filename = additionalDocs2FileNames;
+ 
+  // Ensure additionalComments mirrors notes only when notes has content
+  if (submissionData.notes && String(submissionData.notes).trim() !== '') {
+    submissionData.additionalComments = submissionData.notes;
+  }
+
 
   // Prepare the FormData
   const data = new FormData();
+  // Ensure the first column in Google Sheets maps to the folder URL.
+  // Backend should create the folder and overwrite this placeholder with the actual URL.
+  data.append('FolderUrl', baseFileName);
   Object.entries(submissionData).forEach(([key, value]) => {
     // Only append non-empty values
     if (
@@ -122,7 +142,7 @@ export default function MultiStepForm() {
 
   try {
     const response = await fetch(
-      "https://tu-backend-270306986889.us-central1.run.app/submit",
+      "/api/submit",
       { method: "POST", body: data }
     );
     const resultText = await response.text();
@@ -143,11 +163,48 @@ export default function MultiStepForm() {
 
 
   return (
-    <div className="m-10 p-10 bg-white rounded-2xl shadow-lg max-w-2xl w-full">
+    <div className="m-10 p-10 max-w-2xl w-full border rounded-2xl">
       {submitResult?.success ? (
         <SuccessStep />
       ) : (
         <>
+          {/* Step-level validation */}
+          {/** Compute whether current step is valid to enable Next button */}
+          {(() => {
+            const isStepValid = (currentStep: number): boolean => {
+              // step indices: 0..4
+              if (currentStep === 0) {
+                // Personal Info required fields
+                return Boolean(
+                  formData.firstName &&
+                  formData.lastName &&
+                  formData.studentType &&
+                  formData.degreeLevel &&
+                  formData.gender &&
+                  formData.birthDate &&
+                  formData.personalEmail
+                );
+              }
+              if (currentStep === 1) {
+                // ID Upload required fields
+                return Boolean(formData.nationalID && formData.nationalCountryCode);
+              }
+              if (currentStep === 2) {
+                // Transcript Upload required fields: transcript1 + t1 country
+                return Boolean(formData.transcript1 && formData.t1CountryCode);
+              }
+              if (currentStep === 3) {
+                // Additional Documents: no required fields
+                return true;
+              }
+              // Review step - Next not shown
+              return true;
+            };
+            const canProceed = isStepValid(step);
+            return (
+              <></>
+            );
+          })()}
           {step === 0 && (
             <Step1PersonalInfo form={formData} updateForm={handleChange} onNext={handleNext} step={1} />
           )}
@@ -155,15 +212,26 @@ export default function MultiStepForm() {
             <Step2DocumentUpload form={formData} updateForm={handleChange} onNext={handleNext} onBack={handleBack} step={2} />
           )}
           {step === 2 && (
+            <Step3AdditionalDetails form={formData} updateForm={handleChange} onNext={handleNext} onBack={handleBack} step={3} />
+          )}
+          {step === 3 && (
+            <AdditionalDocumentsStep form={formData} updateForm={handleChange} onNext={handleNext} onBack={handleBack} step={4} />
+          )}
+          {step === 4 && (
             <Step3ReviewSubmit
               form={formData}
               updateForm={handleChange}
               onBack={handleBack}
               onSubmit={handleSubmit}
-              step={3}
+              step={5}
               submitting={submitting}
               submitResult={submitResult}
             />
+          )}
+          {step !== 3 && (
+            <p className="mt-6 text-sm text-red-600 text-center font-bold">
+              Please complete all items with an * before you can advance to the next step.
+            </p>
           )}
           <FormNavigation
             step={step}
@@ -173,6 +241,32 @@ export default function MultiStepForm() {
             handleSubmit={handleSubmit}
             formData={formData}
             submitting={submitting}
+            canProceed={(function(){
+              const isStepValid = (currentStep: number): boolean => {
+                if (currentStep === 0) {
+                  return Boolean(
+                    formData.firstName &&
+                    formData.lastName &&
+                    formData.studentType &&
+                    formData.degreeLevel &&
+                    formData.gender &&
+                    formData.birthDate &&
+                    formData.personalEmail
+                  );
+                }
+                if (currentStep === 1) {
+                  return Boolean(formData.nationalID && formData.nationalCountryCode);
+                }
+                if (currentStep === 2) {
+                  return Boolean(formData.transcript1 && formData.t1CountryCode);
+                }
+                if (currentStep === 3) {
+                  return true;
+                }
+                return true;
+              };
+              return isStepValid(step);
+            })()}
           />
         </>
       )}

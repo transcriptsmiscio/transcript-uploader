@@ -3,7 +3,13 @@ import { countries } from "../../utils/lookupData";
 import Stepper from "../stepper";
 import Header from "../header";
 
-const steps = ["Personal Info", "Document Upload", "Review & Submit"];
+const steps = [
+  "Personal Info",
+  "ID Upload",
+  "Transcript Upload",
+  "Additional Documents",
+  "Review & Submit",
+];
 
 type Props = {
   form: any;
@@ -25,9 +31,26 @@ export default function DocumentUploadStep({
 
   return (
     <div className="max-w-2xl w-full p-8">
-      <Header />
+      <Header accent="brand-red" />
       <Stepper step={step} steps={steps} />
-      <h2 className="text-xl font-bold mb-6 bg-green-200 text-gray-600 text-center shadow-lg">DOCUMENT UPLOAD</h2>
+      <h2 className="text-xl font-semibold mb-6 text-center text-brand-red">ID UPLOAD</h2>
+      {/* Contextual guidance based on Student Location from Step 1 */}
+      {(() => {
+        const st = (form?.studentType || "").toString();
+        let msg = "";
+        if (st === "Ugandan Student") {
+          msg = "Upload your Ugandan National ID or passport. Select Uganda as the issuing country when applicable.";
+        } else if (st === "International Student (Not from Uganda)") {
+          msg = "Upload your passport (or national ID if accepted). Select the country that issued your document.";
+        } else if (st === "United States Student") {
+          msg = "Upload a government‑issued photo ID or passport. Select the issuing country for your document.";
+        }
+        return msg ? (
+          <div className="border rounded-xl p-3 mb-6 text-sm">
+            {msg}
+          </div>
+        ) : null;
+      })()}
       <form
         onSubmit={e => {
           e.preventDefault();
@@ -38,13 +61,13 @@ export default function DocumentUploadStep({
         {/* National ID */}
         <div className="flex flex-row gap-6 mb-6 w-full max-w-3xl">
           <div className="flex flex-col flex-1 min-w-[250px] max-w-md">
-            <label className="font-bold text-gray-900 mb-1">
-              National ID <span className="text-red-600">*</span>
+            <label className="font-semibold text-gray-900 mb-1">
+              National ID or Passport <span className="text-red-600">*</span>
             </label>
             <input
               type="file"
               accept=".pdf,.jpg,.jpeg,.png"
-              className="w-full border rounded-xl px-4 py-2 bg-gray-50 text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-400 h-12"
+              className="w-full border rounded-xl px-4 py-2 h-12"
               required
               value={form.nationalID ? "" : undefined}
               onChange={e => updateForm({ nationalID: e.target.files?.[0] })}
@@ -56,11 +79,11 @@ export default function DocumentUploadStep({
             )}
           </div>
           <div className="flex flex-col flex-1 min-w-[250px] max-w-md">
-            <label className="font-bold text-gray-900 mb-1">
-              National ID Issuing Country <span className="text-red-600">*</span>
+            <label className="font-semibold text-gray-900 mb-1">
+              National ID or Passport Issuing Country <span className="text-red-600">*</span>
             </label>
             <select
-              className="w-full border rounded-xl px-4 py-2 bg-gray-50 text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-400 h-12"
+              className="w-full border rounded-xl px-4 py-2 h-12"
               required
               value={form.nationalCountryCode || ""}
               onChange={e => {
@@ -79,51 +102,7 @@ export default function DocumentUploadStep({
             </select>
           </div>
         </div>
-        {/* Transcripts */}
-        {[1, 2, 3, 4].map(num => (
-          <div key={num} className="flex flex-row gap-6 mb-6 w-full max-w-3xl">
-            <div className="flex flex-col flex-1 min-w-[250px] max-w-md">
-              <label className="font-bold text-gray-900 mb-1">
-                Transcript {num}{num === 1 && <span className="text-red-600">*</span>}
-              </label>
-              <input
-                type="file"
-                accept=".pdf,.jpg,.jpeg,.png"
-                className="w-full border rounded-xl px-4 py-2 bg-gray-50 text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-400 h-12"
-                required={num === 1}
-                onChange={e => updateForm({ [`transcript${num}`]: e.target.files?.[0] })}
-              />
-              {form[`transcript${num}`] && (
-                <span className="text-xs text-gray-500 mt-1">
-                  Selected: {form[`transcript${num}`].name}
-                </span>
-              )}
-            </div>
-            <div className="flex flex-col flex-1 min-w-[250px] max-w-md">
-              <label className="font-bold text-gray-900 mb-1">
-                Transcript {num} Issuing Country{num === 1 && <span className="text-red-600">*</span>}
-              </label>
-              <select
-                className="w-full border rounded-xl px-4 py-2 bg-gray-50 text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-400 h-12"
-                required={num === 1}
-                value={form[`t${num}CountryCode`] || ""}
-                onChange={e => {
-                  const code = e.target.value;
-                  const selected = countries.find(c => c.code === code);
-                  updateForm({
-                    [`t${num}CountryCode`]: code,
-                    [`t${num}Country`]: selected ? selected.name : ""
-                  });
-                }}
-              >
-                <option value="">Select Country</option>
-                {countries.map(c => (
-                  <option key={c.code} value={c.code}>{c.name} ({c.code})</option>
-                ))}
-              </select>
-            </div>
-          </div>
-        ))}
+        {/* Transcripts moved to Transcript Upload (page 3) */}
         {/* Navigation (Next, Back, etc.) here if needed */}
       </form>
     </div>
