@@ -230,3 +230,90 @@ If you want to reduce noise or avoid logging PII in production, wrap these `cons
 
 ---
 
+_**User (2025-10-29 14:51Z)**_
+
+On the AdditionalDetailsStep.tsx, can we make the computeNeeded result text Bold and Red?
+
+---
+
+_**Assistant (gpt-5)**_
+
+<think><details><summary>Thought Process</summary>**Inspecting project styles**
+
+I think I need to use read_file before applying the patch to check the content. It’s also important to always preserve indentation characters. I’m planning to wrap computed text in a span with Tailwind classes, possibly "font-bold text-red-600". But first, I need to confirm that the project uses Tailwind and check for class names in tailwind.config.js. It’s a good idea to inspect the file for style conventions before making changes. Let’s open the file and take a look!</details></think>
+
+---
+
+I'll open `src/components/steps/AdditionalDetailsStep.tsx` to locate where the `computeNeeded` result is rendered, then update its styles to be bold and red.
+
+---
+
+Tool use: **read_file**
+
+Read file: src/components/steps/AdditionalDetailsStep.tsx
+
+---
+
+<think><details><summary>Thought Process</summary>**Applying style changes**
+
+I see where adjustments are needed for the text rendered in lines 63-67, specifically in the "Prerequisite Program Transcript Needed:" section. They want it bold and red, so I plan to add the classes for it. I think using "text-red-600" is a good start, but maybe I should opt for a stronger shade. I'll switch to "font-bold text-red-600" to ensure it's both bold and red, while also keeping everything consistent. So, I'll go ahead and apply this patch to line 64.</details></think>
+
+---
+
+I’m going to update the rendered `needed` text in `src/components/steps/AdditionalDetailsStep.tsx` to use bold and red styling.
+
+---
+
+Tool use: **apply_patch**
+
+<details>
+        <summary>Apply patch for src/components/steps/AdditionalDetailsStep.tsx</summary>
+      
+
+```diff
+*** Begin Patch
+*** Update File: src/components/steps/AdditionalDetailsStep.tsx
+@@
+               Prerequisite Program Transcript Needed: {needed ? (
+-                <span className="font-semibold">{needed}</span>
++                <span className="font-bold text-red-600">{needed}</span>
+               ) : (
+                 <span>Please consult program requirements for your selected degree.</span>
+               )}
+             </div>
+*** End Patch
+```
+
+---
+
+Tool use: **read_lints**
+
+<details>
+          <summary>Read lints for 1 file</summary>
+      
+Lint paths:
+
+- `src/components/steps/AdditionalDetailsStep.tsx`
+
+Lint results
+
+Lint errors for `src/components/steps/AdditionalDetailsStep.tsx`
+
+
+| Message | Range | Severity |
+|-------|-------|----------|
+| 'onBack' is declared but its value is never read. | 22:75-22:81 | DIAGNOSTIC_SEVERITY_HINT |
+
+
+</details>
+
+---
+
+Made the `computeNeeded` result text bold and red.
+
+- Edited `src/components/steps/AdditionalDetailsStep.tsx` to render the `needed` span with `font-bold text-red-600`.
+
+You should now see the prerequisite transcript result in bold red when applicable.
+
+---
+

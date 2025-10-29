@@ -61,7 +61,7 @@ export default function AdditionalDetailsStep({ form, updateForm, onNext, onBack
             <div className="text-sm font-semibold mb-1">Degree Seeking/Transcripts Needed from Your Prerequisite Program</div>
             <div>
               Prerequisite Program Transcript Needed: {needed ? (
-                <span className="font-semibold">{needed}</span>
+                <span className="font-bold text-red-600">{needed}</span>
               ) : (
                 <span>Please consult program requirements for your selected degree.</span>
               )}
@@ -116,7 +116,7 @@ export default function AdditionalDetailsStep({ form, updateForm, onNext, onBack
               >
                 <option value="">Select Country</option>
                 {countries.map(c => (
-                  <option key={c.code} value={c.code}>{c.name} ({c.code})</option>
+                  <option key={c.code} value={c.code}>{c.name}({c.code})</option>
                 ))}
               </select>
             </div>
