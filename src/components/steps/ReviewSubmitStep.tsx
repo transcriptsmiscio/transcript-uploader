@@ -134,6 +134,15 @@ export default function ReviewSubmitStep({
       <Stepper step={step} steps={steps} />
 
       <h2 className="text-xl font-semibold mb-6 text-center text-brand-beige">REVIEW &amp; SUBMIT</h2>
+      {submitting && (
+        <div className="fixed inset-0 bg-black/40 flex items-center justify-center z-50 p-4">
+          <div className="bg-white rounded-xl p-6 shadow-lg text-center max-w-sm w-full">
+            <div className="mx-auto h-10 w-10 animate-spin rounded-full border-4 border-gray-300 border-t-brand-beige mb-3" />
+            <div className="text-base font-semibold mb-1">Submitting your application…</div>
+            <div className="text-sm text-gray-600">Please wait and do not close this window.</div>
+          </div>
+        </div>
+      )}
       {submitResult?.error && (
         <div className="border border-red-400 bg-red-50 text-red-700 rounded-xl p-3 mb-6 text-sm">
           <div className="font-bold">Submission failed</div>
@@ -158,7 +167,7 @@ export default function ReviewSubmitStep({
 
       <div className="rounded-lg p-4 mb-6 border">
         <div className="text-xl font-semibold mb-4">Personal Information</div>
-        <div><strong>Name:</strong> (Last, First, Middle, Additional:) {fullName || <span className="text-gray-400">N/A</span>}</div>
+        <div><strong>Full Name:</strong> {fullName || <span className="text-gray-400">N/A</span>}</div>
         <div><strong>Student Type:</strong> {form.studentType || <span className="text-gray-400">N/A</span>}</div>
         <div><strong>Degree Level:</strong> {form.degreeLevel || <span className="text-gray-400">N/A</span>}</div>
         <div><strong>Gender:</strong> {form.gender || <span className="text-gray-400">N/A</span>}</div>

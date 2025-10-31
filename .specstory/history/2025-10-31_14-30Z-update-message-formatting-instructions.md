@@ -1838,3 +1838,229 @@ Lint errors for `src/components/steps/ReviewSubmitStep.tsx`
 
 ---
 
+_**User (2025-10-31 14:34Z)**_
+
+when submit is processing, please present the user with something that shows the application is working / processing
+
+---
+
+_**Assistant (gpt-5)**_
+
+<think><details><summary>Thought Process</summary>**Implementing UI for Submit State**
+
+I see that we need to improve the user experience by adding a visual indicator during the submission process. The current setup in `MultiStepForm` has a `submitting` state passed to `ReviewSubmitStep`, and the Submit button text changes accordingly. To enhance this, I’m considering adding either a modal overlay with a spinner or an inline banner. I'll implement a conditional block in `ReviewSubmitStep.tsx` to display a "Submitting your application..." message or a spinner when `submitting` is true.
+**Adding Overlay in MultiStepForm**
+
+I’m considering adding an overlay above the forms in the `MultiStepForm` page. The Review page triggers the submission and shows a `submitting` state while the network call is in progress. Until it’s complete, we'll keep the Review page displayed with a disabled Submit button. In `ReviewSubmitStep.tsx`, I’ll create a motionless overlay to display a spinner and a message saying, "Submitting your application... Please wait." I’ll also need to ensure proper indentation with two spaces throughout the code.
+**Updating Overlay and Linting**
+
+I'm updating the linting and adding an overlay above the preview modal, making sure to match the z-index since the modal uses z-50. I want to ensure the overlay stays visible and isn't behind the modal by also setting its z-index to z-50. I’ll implement the patch accordingly. While there’s a possibility of wanting a global processing indicator, this will suffice for now. I need to include status update sentences for any tool calls, so I’ll mention, "I'll add an overlay spinner when submitting" before applying the patch and reading the lints.</details></think>
+
+---
+
+Adding a processing overlay to the Review & Submit page that appears while submission is in progress. I'll implement a full-screen semi-transparent overlay with a spinner and message using the existing `submitting` prop, then run a lint check.
+
+---
+
+Tool use: **apply_patch**
+
+<details>
+        <summary>Apply patch for src/components/steps/ReviewSubmitStep.tsx</summary>
+      
+
+```diff
+*** Begin Patch
+*** Update File: src/components/steps/ReviewSubmitStep.tsx
+@@
+   return (
+     <div className="max-w-2xl mx-auto p-6">
+       <Header accent="brand-beige" />
+       <Stepper step={step} steps={steps} />
+ 
+       <h2 className="text-xl font-semibold mb-6 text-center text-brand-beige">REVIEW &amp; SUBMIT</h2>
++      {submitting && (
++        <div className="fixed inset-0 bg-black/40 flex items-center justify-center z-50 p-4">
++          <div className="bg-white rounded-xl p-6 shadow-lg text-center max-w-sm w-full">
++            <div className="mx-auto h-10 w-10 animate-spin rounded-full border-4 border-gray-300 border-t-brand-beige mb-3" />
++            <div className="text-base font-semibold mb-1">Submitting your application…</div>
++            <div className="text-sm text-gray-600">Please wait and do not close this window.</div>
++          </div>
++        </div>
++      )}
+*** End Patch
+```
+
+---
+
+Tool use: **read_lints**
+
+<details>
+          <summary>Read lints for 1 file</summary>
+      
+Lint paths:
+
+- `src/components/steps/ReviewSubmitStep.tsx`
+
+Lint results
+
+Lint errors for `src/components/steps/ReviewSubmitStep.tsx`
+
+
+| Message | Range | Severity |
+|-------|-------|----------|
+| 'onBack' is declared but its value is never read. | 34:3-34:9 | DIAGNOSTIC_SEVERITY_HINT |
+| 'onSubmit' is declared but its value is never read. | 35:3-35:11 | DIAGNOSTIC_SEVERITY_HINT |
+| 'genderCode' is declared but its value is never read. | 48:9-48:19 | DIAGNOSTIC_SEVERITY_HINT |
+| 'transcriptCodes' is declared but its value is never read. | 51:9-51:24 | DIAGNOSTIC_SEVERITY_HINT |
+| 'baseFileName' is declared but its value is never read. | 62:9-62:21 | DIAGNOSTIC_SEVERITY_HINT |
+
+
+</details>
+
+---
+
+- Added a submitting overlay to `src/components/steps/ReviewSubmitStep.tsx` that appears while the form is posting:
+  - Dimmed backdrop with centered card
+  - Spinner and “Submitting your application…” message
+  - Guidance: “Please wait and do not close this window.”
+- Lint passed.
+
+This shows a clear processing state during submission.
+
+---
+
+_**User (2025-10-31 14:34Z)**_
+
+On the Submit page, FullName and BirthDate should be as we discussed above
+
+---
+
+_**Assistant (gpt-5)**_
+
+<think><details><summary>Thought Process</summary>**Confirming changes**
+
+I need to confirm that the changes are in place. Reviewing the ReviewSubmitStep, it looks like fullName is correctly formatted, and BirthDate is using the long date format, which is great. The label for Name appears to have changed to "Name: (Last, First, Middle, Additional:)," so that's fine. 
+
+I’ll summarize: 
+
+- The Name displays with commas separating all parts. 
+- Birth Date is formatted correctly as a long date, like October 15, 2025. 
+
+I can offer adjustments if needed.
+**Confirming implementation**
+
+They’ve asked me to ensure that everything we discussed is implemented on the Review Submit page. I see that there are no code changes needed, which is good. Since the instructions emphasize that we must provide updates and summaries, I’ll keep my response minimal and straightforward, avoiding heavy markup. I’ll confirm the changes concisely to ensure clarity without complicating things. 
+
+I’ll get right to it with a brief confirmation message!</details></think>
+
+---
+
+_**User (2025-10-31 14:34Z)**_
+
+
+
+---
+
+_**Assistant (gpt-5)**_
+
+<think><details><summary>Thought Process</summary>**Evaluating submission steps**
+
+It seems like the user might be referring to the 'SuccessStep' page, where the content is meant to be static and doesn't display sensitive information. The screenshot suggests that the actual final submission page is the "Submit page," which reveals "Personal Information" and "Full Name." It looks like the code might be outdated or there's a mismatch in the formatting. I can't make changes without confirmation, but I can verify that the code is correct and adjust labels if necessary.
+**Updating name label**
+
+It looks like the user may want the label back to "Full Name:" with the correct formatting for last, first, middle, and additional names, separated by commas. Previously, they changed the label to "Name: (Last, First, Middle, Additional:)", but their screenshot shows "Full Name:". This might be due to an outdated view. To clarify, I'll modify the label to "Full Name: {fullName}" and make sure the birth date format is correct, using 'dateStyle: long.' I'll ensure everything passes lint before applying the change.
+**Applying markup changes**
+
+I’m ready to use apply_patch to adjust the markup. First, I need to find the block that defines "Personal Information" and then modify the label from "Name:" to "Full Name:", ensuring the code reflects that {fullName} is displayed properly. I also want to update any reminders about adding a comma after middle names, since we've already implemented that. 
+
+It's crucial to keep the computation of the 'fullName' variable on the 'ReviewSubmitStep' intact. I'll proceed with applying the patch, running the lints, and then providing a concise summary with a status update before any tool calls.
+**Implementing changes**
+
+I'll start by updating the label to "Full Name:" and double-checking that the date formatting in the code is correct. After that, I’ll proceed to patch the code with these changes. Once patched, I'll run the lint checks to ensure everything is up to standard. Finally, I’ll provide a brief summary message to wrap everything up. It feels good to have a clear plan in place for implementation! Let's get to it.</details></think>
+
+---
+
+I'll switch the label back to “Full Name:” on the review page and keep the comma‑separated `fullName` and long date rendering intact. Applying the edit now and checking lints.
+
+---
+
+Tool use: **apply_patch**
+
+<details>
+        <summary>Apply patch for src/components/steps/ReviewSubmitStep.tsx</summary>
+      
+
+```diff
+*** Begin Patch
+*** Update File: src/components/steps/ReviewSubmitStep.tsx
+@@
+-        <div className="text-xl font-semibold mb-4">Personal Information</div>
+-        <div><strong>Name:</strong> (Last, First, Middle, Additional:) {fullName || <span className="text-gray-400">N/A</span>}</div>
++        <div className="text-xl font-semibold mb-4">Personal Information</div>
++        <div><strong>Full Name:</strong> {fullName || <span className="text-gray-400">N/A</span>}</div>
+*** End Patch
+```
+
+---
+
+Tool use: **read_lints**
+
+<details>
+          <summary>Read lints for 1 file</summary>
+      
+Lint paths:
+
+- `src/components/steps/ReviewSubmitStep.tsx`
+
+Lint results
+
+Lint errors for `src/components/steps/ReviewSubmitStep.tsx`
+
+
+| Message | Range | Severity |
+|-------|-------|----------|
+| 'onBack' is declared but its value is never read. | 34:3-34:9 | DIAGNOSTIC_SEVERITY_HINT |
+| 'onSubmit' is declared but its value is never read. | 35:3-35:11 | DIAGNOSTIC_SEVERITY_HINT |
+| 'genderCode' is declared but its value is never read. | 48:9-48:19 | DIAGNOSTIC_SEVERITY_HINT |
+| 'transcriptCodes' is declared but its value is never read. | 51:9-51:24 | DIAGNOSTIC_SEVERITY_HINT |
+| 'baseFileName' is declared but its value is never read. | 62:9-62:21 | DIAGNOSTIC_SEVERITY_HINT |
+
+
+</details>
+
+---
+
+- Full name now shows as “Full Name:” and uses your agreed format: Last, First, Middle, Additional (comma-separated).
+- Birth date continues to render in long date format (e.g., “October 15, 2025”).
+
+---
+
+_**User (2025-10-31 14:34Z)**_
+
+and the file upload has reverted back? it should have a background and Not have No Choosen file
+
+---
+
+_**Assistant (gpt-5)**_
+
+<think><details><summary>Thought Process</summary>**Addressing file upload issue**
+
+I need to respond to the user about the file upload reverting back. We should ensure there's background and not show "No file chosen." We've already replaced the FileButton in several steps, but it looks like other steps, like ReviewSubmitStep, don’t have file inputs. The screenshot indicated that the Additional Documents page still showed "Choose File" with "No file chosen." I wonder if our input changes are causing this. Also, there's a typo: "No Choosen file" needs correction.
+**Investigating file input issue**
+
+If the UI still shows "No file chosen," it may mean the components weren't properly reloaded, or the file isn't utilizing FileButton. They mentioned it reverted back, perhaps due to their own edits. I need to double-check that all file inputs were replaced: DocumentUploadStep, AdditionalDetailsStep, and AdditionalDocumentsStep have all been updated. But I'm wondering if there are still other file inputs, like in ReviewSubmitStep, which includes names but no inputs. I should look into the FileUploader component in `src/components/FileUploader.tsx`.</details></think>
+
+---
+
+_**User (2025-10-31 14:34Z)**_
+
+please see above?
+
+---
+
+_**Assistant (gpt-5)**_
+
+
+
+---
+
