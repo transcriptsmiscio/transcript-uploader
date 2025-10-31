@@ -26,6 +26,7 @@ const PersonalInformationStep: React.FC<Props> = ({ form, updateForm, onNext, st
       <Header accent="brand-teal" />
       <Stepper step={step} steps={steps} />
       <h2 className="text-xl font-semibold mb-6 text-center text-brand-teal">PERSONAL INFORMATION</h2>
+      <p className="text-sm text-red-600 text-center mt-2">Please complete all items with an * before, advancing to the next step.</p>
       <form
         onSubmit={e => {
           e.preventDefault();

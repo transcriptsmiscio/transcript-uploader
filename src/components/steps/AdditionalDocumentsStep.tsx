@@ -1,6 +1,7 @@
 import React from "react";
 import Stepper from "../stepper";
 import Header from "../header";
+import FileButton from "../FileButton";
 
 const steps = [
   "Personal Info",
@@ -23,8 +24,9 @@ export default function AdditionalDocumentsStep({ form, updateForm, onNext, onBa
     <div className="max-w-2xl w-full p-8">
       <Header accent="brand-gold" />
       <Stepper step={step} steps={steps} />
-      <h2 className="text-xl font-semibold mb-6 text-center text-brand-gold">ADDITIONAL DOCUMENTS</h2>
-      <h3 className="text-lg font-semibold mb-4 text-center text-brand-gold">Use this page to upload a Diploma, an additional transcript, or eave a comment.</h3>
+      <h2 className="text-xl font-semibold mb-6 text-center text-brand-gold">ADDITIONAL DOCUMENTS/COMMENTS</h2>
+      <p className="text-sm text-red-600 text-center mt-2">Please complete all items with an * before, advancing to the next step.</p>
+      <h3 className="text-lg font-semibold mb-4 text-center text-brand-gold">Use this page to upload a Diploma, an additional transcript, or leave a comment.</h3>
       <form
         onSubmit={e => {
           e.preventDefault();
@@ -35,11 +37,9 @@ export default function AdditionalDocumentsStep({ form, updateForm, onNext, onBa
         <div className="grid grid-cols-1 gap-6">
           <div>
             <label className="block text-gray-700 font-semibold mb-1">Additional Document 1 (optional)</label>
-            <input
-              type="file"
+            <FileButton
               accept=".pdf,.jpg,.jpeg,.png"
-              className="w-full border rounded-xl px-4 py-2 h-12"
-              onChange={e => updateForm({ additionalDoc1: e.target.files?.[0] })}
+              onFileSelected={(file) => updateForm({ additionalDoc1: file })}
             />
             {form.additionalDoc1 && (
               <span className="text-xs text-gray-500 mt-1 block">Selected: {form.additionalDoc1.name}</span>
@@ -48,11 +48,9 @@ export default function AdditionalDocumentsStep({ form, updateForm, onNext, onBa
 
           <div>
             <label className="block text-gray-700 font-semibold mb-1">Additional Document 2 (optional)</label>
-            <input
-              type="file"
+            <FileButton
               accept=".pdf,.jpg,.jpeg,.png"
-              className="w-full border rounded-xl px-4 py-2 h-12"
-              onChange={e => updateForm({ additionalDoc2: e.target.files?.[0] })}
+              onFileSelected={(file) => updateForm({ additionalDoc2: file })}
             />
             {form.additionalDoc2 && (
               <span className="text-xs text-gray-500 mt-1 block">Selected: {form.additionalDoc2.name}</span>

@@ -50,8 +50,13 @@ export default function ReviewSubmitStep({
   // For transcripts, use the *_Country_Code fields
   const transcriptCodes = [1, 2, 3, 4].map(num => form[`t${num}CountryCode`] || "");
 
-  // Helper: full name preview
-  const fullName = [form.firstName, form.middleName, form.lastName, form.additionalName].filter(Boolean).join(" ");
+  // Helper: full name preview (commas between all provided parts)
+  const fullName = [
+    (form.lastName || "").toString().trim(),
+    (form.firstName || "").toString().trim(),
+    (form.middleName || "").toString().trim(),
+    (form.additionalName || "").toString().trim(),
+  ].filter(Boolean).join(", ");
 
   // Helper: expected file base
   const baseFileName = [
@@ -82,22 +87,84 @@ export default function ReviewSubmitStep({
   const handleZoomIn = () => setZoom(prev => prev + 0.2);
   const handleZoomOut = () => setZoom(prev => Math.max(0.2, prev - 0.2));
 
+  const formatLongDate = (raw: string | Date): string => {
+    if (!raw) return "";
+    let date: Date | null = null;
+
+    if (raw instanceof Date) {
+      date = raw;
+    } else if (typeof raw === 'string') {
+      const s = raw.trim();
+      // Handle YYYY-MM-DD (from <input type="date">)
+      const isoMatch = /^\d{4}-\d{2}-\d{2}$/.test(s);
+      if (isoMatch) {
+        const [y, m, d] = s.split('-').map(n => parseInt(n, 10));
+        date = new Date(Date.UTC(y, m - 1, d));
+      } else {
+        // Try MM/DD/YYYY
+        const slash = s.match(/^(\d{1,2})\/(\d{1,2})\/(\d{4})$/);
+        if (slash) {
+          const m = parseInt(slash[1], 10);
+          const d = parseInt(slash[2], 10);
+          const y = parseInt(slash[3], 10);
+          date = new Date(Date.UTC(y, m - 1, d));
+        } else {
+          // Fallback to native parsing
+          const parsed = new Date(s);
+          if (!isNaN(parsed.getTime())) {
+            date = parsed;
+          }
+        }
+      }
+    }
+
+    if (!date) return String(raw);
+    // Use long date format (e.g., October 15, 2025)
+    try {
+      // dateStyle: 'long' ensures correct long format; keep UTC to avoid TZ shifts
+      return new Intl.DateTimeFormat('en-US', { dateStyle: 'long', timeZone: 'UTC' }).format(date);
+    } catch {
+      return new Intl.DateTimeFormat('en-US', { month: 'long', day: 'numeric', year: 'numeric', timeZone: 'UTC' }).format(date);
+    }
+  };
+
   return (
     <div className="max-w-2xl mx-auto p-6">
       <Header accent="brand-beige" />
       <Stepper step={step} steps={steps} />
 
       <h2 className="text-xl font-semibold mb-6 text-center text-brand-beige">REVIEW &amp; SUBMIT</h2>
+      {submitResult?.error && (
+        <div className="border border-red-400 bg-red-50 text-red-700 rounded-xl p-3 mb-6 text-sm">
+          <div className="font-bold">Submission failed</div>
+          <div>{submitResult.error}</div>
+        </div>
+      )}
+      {(() => {
+        const missingNationalID = !form?.nationalID;
+        const missingTranscript = !(form?.transcript1 || form?.transcript2 || form?.transcript3 || form?.transcript4);
+        if (missingNationalID || missingTranscript) {
+          return (
+            <div className="border border-red-300 bg-red-50 text-red-700 rounded-xl p-3 mb-6 text-sm text-center">
+              <div>A National ID and at least one Transcript are required before submission. Please return to the National ID Upload or Transcript Upload step to complete the required items.</div>
+              {missingNationalID &&  <div className="font-bold">Missing: National ID</div>}
+              {missingTranscript && <div className="font-bold">Missing: Transcript</div>}
+            </div>
+          );
+        }
+        return null;
+      })()}
+      <p className="text-sm text-red-600 text-center mt-2">Please complete all items with an * before, advancing to the next step.</p>
 
       <div className="rounded-lg p-4 mb-6 border">
         <div className="text-xl font-semibold mb-4">Personal Information</div>
-        <div><strong>Full Name:</strong> {fullName || <span className="text-gray-400">N/A</span>}</div>
+        <div><strong>Name:</strong> (Last, First, Middle, Additional:) {fullName || <span className="text-gray-400">N/A</span>}</div>
         <div><strong>Student Type:</strong> {form.studentType || <span className="text-gray-400">N/A</span>}</div>
         <div><strong>Degree Level:</strong> {form.degreeLevel || <span className="text-gray-400">N/A</span>}</div>
         <div><strong>Gender:</strong> {form.gender || <span className="text-gray-400">N/A</span>}</div>
-        <div><strong>Birth Date:</strong> {form.birthDate || <span className="text-gray-400">N/A</span>}</div>
+        <div><strong>Birth Date:</strong> {form.birthDate ? formatLongDate(form.birthDate) : <span className="text-gray-400">N/A</span>}</div>
         <div><strong>Email:</strong> {form.personalEmail || <span className="text-gray-400">N/A</span>}</div>
-        <div><strong>Notes:</strong> {form.notes || <span className="text-gray-400">N/A</span>}</div>
+      
         <div><strong>Additional Comments:</strong> {form.additionalComments || <span className="text-gray-400">N/A</span>}</div>
       </div>
 
@@ -122,7 +189,7 @@ export default function ReviewSubmitStep({
               </button>
               <button
                 type="button"
-                onClick={() => updateForm({ NationalID: undefined, nationalCountry: "", nationalCountryCode: "" })}
+                onClick={() => updateForm({ nationalID: undefined, nationalCountry: "", nationalCountryCode: "" })}
                 className="p-1 text-red-500 hover:text-red-700"
                 aria-label="Remove National ID"
               >
@@ -233,11 +300,13 @@ export default function ReviewSubmitStep({
           required
         />
         <label htmlFor="accuracy" className="text-gray-900 font-medium"><span className="text-red-600">*</span>
-          I confirm that I have carefully reviewed all information entered and that it is accurate and complete
-          to the best of my knowledge. I understand that submitting incomplete information, or documents that 
-          do not meet the stated transcript requirements, may result in delays or the rejection of my application. 
-          I also acknowledge that not all international degrees are guaranteed to be recognized as equivalent to 
-          U.S. degrees, particularly if the institution is not accredited.
+          I confirm that I have carefully reviewed all information entered and that it is accurate and complete to the best of my knowledge.
+          <br />
+          <br />
+          I understand that submitting incomplete information, or documents that do not meet the stated transcript requirements, may result in delays or the rejection of my application.
+          <br />
+          <br />
+          I also acknowledge that not all international degrees are guaranteed to be recognized as equivalent to U.S. degrees, particularly if the institution is not accredited.
         </label>
       </div>
 

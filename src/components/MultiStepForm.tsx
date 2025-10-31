@@ -65,6 +65,14 @@ export default function MultiStepForm() {
   const handleBack = () => setStep(s => Math.max(s - 1, 0));
 
   const handleSubmit = async () => {
+  // Pre-submit guard: require National ID and at least one Transcript
+  const hasNationalID = Boolean(formData.nationalID);
+  const hasAnyTranscript = Boolean(formData.transcript1 || formData.transcript2 || formData.transcript3 || formData.transcript4);
+  if (!hasNationalID || !hasAnyTranscript) {
+    setSubmitResult({ error: "A National ID and at least one Transcript are required before submission." });
+    return;
+  }
+
   setSubmitting(true);
   setSubmitResult(null);
 
@@ -228,11 +236,7 @@ export default function MultiStepForm() {
               submitResult={submitResult}
             />
           )}
-          {step !== 3 && (
-            <p className="mt-6 text-sm text-red-600 text-center font-bold">
-              Please complete all items with an * before you can advance to the next step.
-            </p>
-          )}
+          {/* Instruction moved to each step page under the title */}
           <FormNavigation
             step={step}
             stepsCount={stepsCount}

@@ -33,19 +33,28 @@ export default function FormNavigation({
         </button>
       )}
       {step === stepsCount - 1 ? (
-        <button
-          className={`px-6 py-2 border rounded-xl ${
-            !formData.termsConditions || submitting
-              ? "bg-gray-200 text-gray-400 border-gray-300 cursor-not-allowed opacity-70"
-              : "bg-brand-navy text-white cursor-pointer"
-          }`}
-          onClick={handleSubmit}
-          type="button"
-          disabled={!formData.termsConditions || submitting}
-          aria-disabled={!formData.termsConditions || submitting}
-        >
-          {submitting ? "Submitting..." : "Submit"}
-        </button>
+        (() => {
+          const hasNationalID = Boolean(formData?.nationalID);
+          const hasAnyTranscript = Boolean(
+            formData?.transcript1 || formData?.transcript2 || formData?.transcript3 || formData?.transcript4
+          );
+          const disabled = submitting || !formData.termsConditions || !hasNationalID || !hasAnyTranscript;
+          return (
+            <button
+              className={`px-6 py-2 border rounded-xl ${
+                disabled
+                  ? "bg-gray-200 text-gray-400 border-gray-300 cursor-not-allowed opacity-70"
+                  : "bg-brand-navy text-white cursor-pointer"
+              }`}
+              onClick={handleSubmit}
+              type="button"
+              disabled={disabled}
+              aria-disabled={disabled}
+            >
+              {submitting ? "Submitting..." : "Submit"}
+            </button>
+          );
+        })()
       ) : (
         <button
           className={`px-6 py-2 border rounded-xl ${

@@ -2,6 +2,7 @@ import React from "react";
 import Stepper from "../stepper";
 import Header from "../header";
 import { countries } from "../../utils/lookupData";
+import FileButton from "../FileButton";
 
 const steps = [
   "Personal Info",
@@ -25,6 +26,7 @@ export default function AdditionalDetailsStep({ form, updateForm, onNext, onBack
       <Header accent="brand-coral" />
       <Stepper step={step} steps={steps} />
       <h2 className="text-xl font-semibold mb-6 text-center text-brand-coral">TRANSCRIPT UPLOAD</h2>
+      <p className="text-sm text-red-600 text-center mt-2">Please complete all items with an * before, advancing to the next step.</p>
       {/* Guidance based on Student Location and Degree Level from Step 1 */}
       {(() => {
         const studentType = (form?.studentType || "").toString();
@@ -32,16 +34,16 @@ export default function AdditionalDetailsStep({ form, updateForm, onNext, onBack
 
         const computeNeeded = (deg: string): string => {
           if (deg === "Undergraduate") {
-            return "Secondary transcripts (A & O levels for Ugandans)";
+            return "Secondary Transcripts (A & O levels for Ugandans)";
           }
           if (deg === "Graduate Certificate" || deg === "Postgraduate Diploma") {
-            return "Unofficial undergraduate transcript";
+            return "Unofficial Undergraduate Transcript";
           }
           if (deg === "MBA" || deg === "Other Master's" || deg === "Master’s" || deg === "Masters") {
-            return "Official undergraduate transcript";
+            return "Undergraduate Transcript";
           }
           if (deg === "Doctoral") {
-            return "Official master’s transcript";
+            return "Master’s Transcript";
           }
           return "";
         };
@@ -60,7 +62,7 @@ export default function AdditionalDetailsStep({ form, updateForm, onNext, onBack
           <div className="border rounded-xl p-3 mb-6 text-sm">
             <div className="text-sm font-semibold mb-1">Degree Seeking/Transcripts Needed from Your Prerequisite Program</div>
             <div>
-              Prerequisite Program Transcript Needed: {needed ? (
+              Prerequisite Transcript Needed: {needed ? (
                 <span className="font-bold text-red-600">{needed}</span>
               ) : (
                 <span>Please consult program requirements for your selected degree.</span>
@@ -84,12 +86,10 @@ export default function AdditionalDetailsStep({ form, updateForm, onNext, onBack
               <label className="font-semibold text-gray-900 mb-1">
                 Transcript {num}{num === 1 && <span className="text-red-600">*</span>}
               </label>
-              <input
-                type="file"
+              <FileButton
                 accept=".pdf,.jpg,.jpeg,.png"
-              className="w-full border rounded-xl px-4 py-2 h-12"
                 required={num === 1}
-                onChange={e => updateForm({ [`transcript${num}`]: e.target.files?.[0] })}
+                onFileSelected={(file) => updateForm({ [`transcript${num}`]: file })}
               />
               {form[`transcript${num}`] && (
                 <span className="text-xs text-gray-500 mt-1">

@@ -2,6 +2,7 @@ import React from "react";
 import { countries } from "../../utils/lookupData";
 import Stepper from "../stepper";
 import Header from "../header";
+import FileButton from "../FileButton";
 
 const steps = [
   "Personal Info",
@@ -34,6 +35,7 @@ export default function DocumentUploadStep({
       <Header accent="brand-red" />
       <Stepper step={step} steps={steps} />
       <h2 className="text-xl font-semibold mb-6 text-center text-brand-red">ID UPLOAD</h2>
+      <p className="text-sm text-red-600 text-center mt-2">Please complete all items with an * before, advancing to the next step.</p>
       {/* Contextual guidance based on Student Location from Step 1 */}
       {(() => {
         const st = (form?.studentType || "").toString();
@@ -64,13 +66,10 @@ export default function DocumentUploadStep({
             <label className="font-semibold text-gray-900 mb-1">
               National ID or Passport <span className="text-red-600">*</span>
             </label>
-            <input
-              type="file"
+            <FileButton
               accept=".pdf,.jpg,.jpeg,.png"
-              className="w-full border rounded-xl px-4 py-2 h-12"
               required
-              value={form.nationalID ? "" : undefined}
-              onChange={e => updateForm({ nationalID: e.target.files?.[0] })}
+              onFileSelected={(file) => updateForm({ nationalID: file })}
             />
             {form.nationalID && (
               <span className="text-xs text-gray-500 mt-1">
