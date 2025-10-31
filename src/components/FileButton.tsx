@@ -31,7 +31,7 @@ export default function FileButton({ accept, required, onFileSelected, buttonCla
         accept={accept}
         required={required}
         onChange={handleChange}
-        className="hidden"
+        className="sr-only"
       />
       <button
         type="button"

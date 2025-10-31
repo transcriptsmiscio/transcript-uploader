@@ -2060,7 +2060,90 @@ please see above?
 
 _**Assistant (gpt-5)**_
 
+<think><details><summary>Thought Process</summary>**Reviewing document styles**
 
+I'm reflecting on the earlier screenshot, which shows the default system style. I'm considering that perhaps additional documents use an h3 text like "Use this page to upload..." followed by the file input saying "Choose File No file chosen." Maybe our replacement didn't apply as expected. To get to the bottom of this, I'll check the files AdditionalDocumentsStep.tsx, AdditionalDetailsStep.tsx, and DocumentUploadStep.tsx—I'll read those next, and I'll look into using functions.read_file in parallel.</details></think>
+
+---
+
+I'll double-check the three upload steps to ensure they use the styled FileButton component (hiding the native "No file chosen" text). If any reverted to a plain input, I’ll switch them back and re-run lints.
+
+---
+
+Tool use: **read_file**
+
+Read file: src/components/steps/DocumentUploadStep.tsx
+
+---
+
+Tool use: **read_file**
+
+Read file: src/components/steps/AdditionalDetailsStep.tsx
+
+---
+
+Tool use: **read_file**
+
+Read file: src/components/steps/AdditionalDocumentsStep.tsx
+
+---
+
+<think><details><summary>Thought Process</summary>**Evaluating file input options**
+
+I’m noticing that the review page doesn’t have a file input but shows ‘Preview’ and ‘Remove’ icons instead. They mentioned verifying components include FileButton, so I’ll suggest a fix: we should use the visually-hidden technique to avoid issues in Safari. I’m thinking we could update the FileButton styles to use ‘sr-only’ to keep it offscreen while still accessible. I’m ensuring it’s focusable to let the OS file dialog open. Let's implement this!
+**Updating FileButton implementation**
+
+I’m realizing that some browsers still treat the input as hidden despite it not being display none. So, I believe a programmatic click would still work fine. I plan to update the FileButton to position it off-screen using the class 'sr-only absolute -left-[9999px]'. Fortunately, Tailwind's 'sr-only' includes absolute positioning, so I'm all set there. I’ll also ensure that the AdditionalDocumentsStep header includes "ADDITIONAL DOCUMENTS/COMMENTS" as a tagline. This way, I can effectively avoid showing 'No file chosen' and improve cross-browser reliability. Let's go ahead and implement this!</details></think>
+
+---
+
+Tool use: **apply_patch**
+
+<details>
+        <summary>Apply patch for src/components/FileButton.tsx</summary>
+      
+
+```diff
+*** Begin Patch
+*** Update File: src/components/FileButton.tsx
+@@
+-      <input
++      <input
+         ref={inputRef}
+         type="file"
+         accept={accept}
+         required={required}
+         onChange={handleChange}
+-        className="hidden"
++        className="sr-only"
+       />
+*** End Patch
+```
+
+---
+
+Tool use: **read_lints**
+
+<details>
+          <summary>Read lints for 1 file</summary>
+      
+Lint paths:
+
+- `src/components/FileButton.tsx`
+
+Lint results
+
+
+**No lint errors found**
+</details>
+
+---
+
+- I checked all upload steps and they are using the custom `FileButton` with a themed background.
+- To prevent any browser from showing “No file chosen,” I updated `src/components/FileButton.tsx` to hide the native input using a screen-reader-only class instead of display: none. This keeps it accessible but invisible, and the “Choose File” button opens the dialog.
+- The button remains styled (brand navy background, white text, hover/focus states). No linter issues.
+
+If you still see “No file chosen,” try a hard refresh. It should now consistently show only the styled button with the “Selected: …” line below.
 
 ---
 
