@@ -3165,3 +3165,111 @@ If you still see an error, paste the new build lines and I’ll adjust immediate
 
 ---
 
+_**User (2025-11-01 04:33Z)**_
+
+23:42:22.498 Running build in Washington, D.C., USA (East) – iad1
+
+23:42:22.498 Build machine configuration: 2 cores, 8 GB
+
+23:42:22.621 Cloning github.com/transcriptsmiscio/transcript-uploader (Branch: main, Commit: 4d2af22)
+
+23:42:29.401 Cloning completed: 6.779s
+
+23:42:29.643 Restored build cache from previous deployment (AK8n6LpaU4GTYRjY2dPsbcUrKs7X)
+
+23:42:30.257 Running "vercel build"
+
+23:42:30.626 Vercel CLI 48.8.0
+
+23:42:30.948 WARNING: You should not upload the `.next` directory.
+
+23:42:30.955 Installing dependencies...
+
+23:42:32.701 
+
+23:42:32.702 added 7 packages in 2s
+
+23:42:32.703 
+
+23:42:32.703 159 packages are looking for funding
+
+23:42:32.703   run `npm fund` for details
+
+23:42:32.730 Detected Next.js version: 14.2.33
+
+23:42:32.734 Running "npm run build"
+
+23:42:32.834 
+
+23:42:32.835 > transcript-uploader@0.1.0 build
+
+23:42:32.835 > next build
+
+23:42:32.835 
+
+23:42:33.519   ▲ Next.js 14.2.33
+
+23:42:33.520   - Environments: .env.local
+
+23:42:33.520 
+
+23:42:33.579    Creating an optimized production build ...
+
+23:42:40.865  ⚠ Compiled with warnings
+
+23:42:40.866 
+
+23:42:40.866 ./src/app/api/upload-url/route.ts
+
+23:42:40.866 Attempted import error: 'generateUploadURL' is not exported from '@vercel/blob' (imported as 'generateUploadURL').
+
+23:42:40.866 
+
+23:42:40.866 Import trace for requested module:
+
+23:42:40.866 ./src/app/api/upload-url/route.ts
+
+23:42:40.866 
+
+23:42:44.166 Browserslist: browsers data (caniuse-lite) is 6 months old. Please run:
+
+23:42:44.166   npx update-browserslist-db@latest
+
+23:42:44.167   Why you should do it regularly: https://github.com/browserslist/update-db#readme
+
+23:42:45.878  ✓ Compiled successfully
+
+23:42:45.879    Linting and checking validity of types ...
+
+23:42:57.231 Failed to compile.
+
+23:42:57.231 
+
+23:42:57.231 ./src/app/api/upload-url/route.ts:1:10
+
+23:42:57.232 Type error: Module '"@vercel/blob"' has no exported member 'generateUploadURL'.
+
+23:42:57.232 
+
+23:42:57.232 [0m[31m[1m>[22m[39m[90m 1 |[39m [36mimport[39m { generateUploadURL } [36mfrom[39m [32m'@vercel/blob'[39m[33m;[39m[0m
+
+23:42:57.232 [0m [90m   |[39m          [31m[1m^[22m[39m[0m
+
+23:42:57.232 [0m [90m 2 |[39m[0m
+
+23:42:57.232 [0m [90m 3 |[39m [36mexport[39m [36mconst[39m runtime [33m=[39m [32m'nodejs'[39m[33m;[39m[0m
+
+23:42:57.232 [0m [90m 4 |[39m[0m
+
+23:42:57.284 Next.js build worker exited with code: 1 and signal: null
+
+23:42:57.302 Error: Command "npm run build" exited with 1
+
+---
+
+_**Assistant (gpt-5)**_
+
+
+
+---
+
