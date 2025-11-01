@@ -31,7 +31,7 @@ export default function DocumentUploadStep({
   const required = { input: "border-red-300", label: "text-red-600" };
 
   return (
-    <div className="max-w-2xl w-full p-8">
+    <div className="max-w-2xl w-full p-6 md:p-8">
       <Header accent="brand-red" />
       <Stepper step={step} steps={steps} />
       <h2 className="text-xl font-semibold mb-6 text-center text-brand-red">ID UPLOAD</h2>
@@ -61,8 +61,8 @@ export default function DocumentUploadStep({
         autoComplete="off"
       >
         {/* National ID */}
-        <div className="flex flex-row gap-6 mb-6 w-full max-w-3xl">
-          <div className="flex flex-col flex-1 min-w-[250px] max-w-md">
+        <div className="flex flex-col md:flex-row gap-4 md:gap-6 mb-6 w-full max-w-3xl">
+          <div className="flex flex-col flex-1 min-w-0 md:min-w-[250px] md:max-w-md">
             <label className="font-semibold text-gray-900 mb-1">
               National ID or Passport <span className="text-red-600">*</span>
             </label>
@@ -77,7 +77,7 @@ export default function DocumentUploadStep({
               </span>
             )}
           </div>
-          <div className="flex flex-col flex-1 min-w-[250px] max-w-md">
+          <div className="flex flex-col flex-1 min-w-0 md:min-w-[250px] md:max-w-md">
             <label className="font-semibold text-gray-900 mb-1">
               National ID or Passport Issuing Country <span className="text-red-600">*</span>
             </label>

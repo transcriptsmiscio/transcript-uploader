@@ -2147,3 +2147,130 @@ If you still see “No file chosen,” try a hard refresh. It should now consist
 
 ---
 
+_**User (2025-10-31 14:34Z)**_
+
+make the application mobile first friendly. Right now page 2, 3 are not laying out correctly
+
+---
+
+_**Assistant (gpt-5)**_
+
+<think><details><summary>Thought Process</summary>**Updating layout tasks**
+
+I need to add some to-dos for the page layout updates and linting. 
+
+In DocumentUploadStep.tsx, I’ll change the outer container class and adjust the child elements for better responsiveness. In AdditionalDetailsStep.tsx, I must make similar adjustments and ensure the mapping and child wrappers are updated for consistency. 
+
+After all the updates, I’ll run linting for both files and remember to include status updates before using any tools, as per developer instructions.
+**Tracking tasks and updates**
+
+I've noticed that our assistant's previous turns sometimes skipped brief status updates, but I want to make sure to include them going forward. 
+
+I need to track the to-dos as well and plan to add a todo_write with three specific items. It’s essential to update the statuses as we carry out these tasks. With this plan in place, I think I'll be more organized and clear about our progress. Let’s move ahead with these updates!</details></think>
+
+---
+
+I'll make page 2 and 3 responsive by stacking inputs on small screens and using responsive gaps and min-widths. I'll update `DocumentUploadStep.tsx` and `AdditionalDetailsStep.tsx`, then lint both files.
+
+---
+
+Tool use: **todo_write**
+
+## Todo List
+
+- [-] Make page 2 (ID Upload) layout mobile-first responsive
+- [ ] Make page 3 (Transcript Upload) layout mobile-first responsive
+- [ ] Run lint on updated files
+
+---
+
+Tool use: **apply_patch**
+
+<details>
+        <summary>Apply patch for src/components/steps/DocumentUploadStep.tsx</summary>
+      
+
+```diff
+*** Begin Patch
+*** Update File: src/components/steps/DocumentUploadStep.tsx
+@@
+-  return (
+-    <div className="max-w-2xl w-full p-8">
++  return (
++    <div className="max-w-2xl w-full p-6 md:p-8">
+@@
+-        <div className="flex flex-row gap-6 mb-6 w-full max-w-3xl">
+-          <div className="flex flex-col flex-1 min-w-[250px] max-w-md">
++        <div className="flex flex-col md:flex-row gap-4 md:gap-6 mb-6 w-full max-w-3xl">
++          <div className="flex flex-col flex-1 min-w-0 md:min-w-[250px] md:max-w-md">
+@@
+-          <div className="flex flex-col flex-1 min-w-[250px] max-w-md">
++          <div className="flex flex-col flex-1 min-w-0 md:min-w-[250px] md:max-w-md">
+*** End Patch
+```
+
+---
+
+Tool use: **todo_write**
+
+## Todo List
+
+- [x] Make page 2 (ID Upload) layout mobile-first responsive
+- [-] Make page 3 (Transcript Upload) layout mobile-first responsive
+- [ ] Run lint on updated files
+
+---
+
+Tool use: **apply_patch**
+
+<details>
+        <summary>Apply patch for src/components/steps/AdditionalDetailsStep.tsx</summary>
+      
+
+```diff
+*** Begin Patch
+*** Update File: src/components/steps/AdditionalDetailsStep.tsx
+@@
+-export default function AdditionalDetailsStep({ form, updateForm, onNext, onBack, step }: Props) {
+-  return (
+-    <div className="max-w-2xl w-full p-8">
++export default function AdditionalDetailsStep({ form, updateForm, onNext, onBack, step }: Props) {
++  return (
++    <div className="max-w-2xl w-full p-6 md:p-8">
+@@
+-        {[1, 2].map(num => (
+-          <div key={num} className="flex flex-row gap-6 mb-6 w-full max-w-3xl">
+-            <div className="flex flex-col flex-1 min-w-[250px] max-w-md">
++        {[1, 2].map(num => (
++          <div key={num} className="flex flex-col md:flex-row gap-4 md:gap-6 mb-6 w-full max-w-3xl">
++            <div className="flex flex-col flex-1 min-w-0 md:min-w-[250px] md:max-w-md">
+@@
+-            <div className="flex flex-col flex-1 min-w-[250px] max-w-md">
++            <div className="flex flex-col flex-1 min-w-0 md:min-w-[250px] md:max-w-md">
+*** End Patch
+```
+
+---
+
+Tool use: **todo_write**
+
+## Todo List
+
+- [x] Make page 2 (ID Upload) layout mobile-first responsive
+- [x] Make page 3 (Transcript Upload) layout mobile-first responsive
+- [-] Run lint on updated files
+
+---
+
+Tool use: **read_lints**
+
+---
+
+
+
+---
+
+
+
+---
+
