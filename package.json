@@ -14,29 +14,30 @@
     "@hookform/resolvers": "^5.1.1",
     "@radix-ui/react-dialog": "^1.1.14",
     "@radix-ui/react-tooltip": "^1.2.7",
+    "@vercel/blob": "^0.24.1",
+    "autoprefixer": "^10.4.21",
     "country-list": "^2.3.0",
     "framer-motion": "^12.18.1",
+    "googleapis": "^131.0.0",
     "next": "^14.2.30",
+    "postcss": "^8.5.6",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-hook-form": "^7.57.0",
     "react-select": "^5.10.1",
     "sonner": "^2.0.5",
     "tailwindcss": "^3.4.17",
-    "autoprefixer": "^10.4.21",
-    "postcss": "^8.5.6",
-    "zod": "^3.25.64",
-    "googleapis": "^131.0.0"
+    "zod": "^3.25.64"
   },
   "devDependencies": {
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
     "autoprefixer": "^10.4.21",
-    "tailwindcss": "^3.4.17",
     "eslint": "^8.56.0",
     "eslint-config-next": "14.1.0",
     "postcss": "^8.5.6",
+    "tailwindcss": "^3.4.17",
     "typescript": "^5"
   }
 }

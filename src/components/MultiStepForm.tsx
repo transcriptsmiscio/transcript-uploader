@@ -76,6 +76,31 @@ export default function MultiStepForm() {
   setSubmitting(true);
   setSubmitResult(null);
 
+  // Helper: upload a file to Vercel Blob and return its URL
+  const uploadToBlob = async (file: File | null | undefined): Promise<string | null> => {
+    try {
+      if (!file) return null;
+      const r = await fetch('/api/upload-url', {
+        method: 'POST',
+        headers: { 'content-type': 'application/json' },
+        body: JSON.stringify({ contentType: (file as any).type || 'application/octet-stream' }),
+      });
+      if (!r.ok) throw new Error(await r.text());
+      const { uploadUrl } = await r.json();
+      const up = await fetch(uploadUrl, {
+        method: 'PUT',
+        headers: { 'content-type': (file as any).type || 'application/octet-stream' },
+        body: file,
+      });
+      if (!up.ok) throw new Error(await up.text());
+      const location = up.headers.get('Location');
+      return location || null;
+    } catch (e) {
+      console.error('Blob upload failed:', e);
+      return null; // fallback handled below
+    }
+  };
+
   // Lookup code values for studentType and degreeLevel
   const studentTypeObj = studentTypes.find(st => st.name === formData.studentType || st.code === formData.studentType);
   const degreeLevelObj = degreeLevels.find(dl => dl.name === formData.degreeLevel || dl.code === formData.degreeLevel);
@@ -106,6 +131,29 @@ export default function MultiStepForm() {
 
   // Prepare the submission data
   const submissionData: { [key: string]: any } = { ...formData };
+
+  // Attempt to upload files to Blob; if successful, replace file objects with URLs.
+  // If an upload fails, keep the original File object to preserve legacy behavior (may work for small files).
+  try {
+    const fileKeys = ['nationalID', 'transcript1', 'transcript2', 'transcript3', 'transcript4', 'additionalDoc1', 'additionalDoc2'] as const;
+    const uploads: Array<Promise<void>> = [];
+    for (const key of fileKeys) {
+      const f = (formData as any)[key] as File | null | undefined;
+      if (f) {
+        uploads.push(
+          (async () => {
+            const url = await uploadToBlob(f);
+            if (url) {
+              submissionData[key] = url; // send URL instead of File
+            }
+          })()
+        );
+      }
+    }
+    await Promise.all(uploads);
+  } catch (e) {
+    console.error('One or more uploads failed; falling back for those files.', e);
+  }
 
   // Force codes in the payload
   submissionData.gender = genderCode;
